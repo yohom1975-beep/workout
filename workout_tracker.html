@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>💪 健身記錄</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#2b3a52;
+  --surface:#34495e;
+  --surface2:#2c3e50;
+  --surface3:#243447;
+  --border:rgba(255,255,255,.07);
+  --text:#ecf0f1;--text2:#bdc3c7;--text3:#7f8c8d;
+  --accent:#3498db;--accent-dark:#2980b9;--accent-light:rgba(52,152,219,.2);
+  --green:#1abc9c;--green-dark:#16a085;--green-light:rgba(26,188,156,.2);
+  --red:#e74c3c;--red-light:rgba(231,76,60,.18);
+  --amber:#f39c12;--amber-light:rgba(243,156,18,.18);
+  --cardio:#9b59b6;--cardio-dark:#8e44ad;--cardio-light:rgba(155,89,182,.2);
+  --pink:#e91e8c;
+  --r:4px;--r-sm:4px;--r-lg:6px;--r-xl:12px;
+}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:15px;min-height:100vh;padding-bottom:90px}
+
+/* ── NAV ── */
+.nav{background:var(--surface2);padding:0;position:sticky;top:0;z-index:100;border-bottom:3px solid var(--accent)}
+.nav-top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 10px}
+.nav-title{font-size:16px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:1px}
+.install-btn{border:none;background:var(--surface);border-radius:var(--r-sm);padding:7px 12px;font-size:11px;font-weight:700;color:var(--text2);cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.5px;transition:background .15s}
+.install-btn:hover{background:var(--accent);color:#fff}
+.nav-tabs{display:flex;border-top:1px solid var(--border)}
+.nav-tab{flex:1;text-align:center;padding:11px 4px;font-size:11px;font-weight:700;color:var(--text3);border:none;background:transparent;cursor:pointer;transition:all .15s;white-space:nowrap;font-family:inherit;text-transform:uppercase;letter-spacing:.5px;border-bottom:3px solid transparent;margin-bottom:-3px}
+.nav-tab:hover{color:var(--text2)}
+.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ── PAGES ── */
+.page{padding:14px 16px;display:none}
+.page.active{display:block}
+
+/* ── CARDS (flat panels) ── */
+.nm-card{background:var(--surface);border-radius:var(--r-lg);padding:18px;margin-bottom:14px;border:none}
+.nm-card-flat{background:var(--surface2);border-radius:var(--r-lg);padding:16px;margin-bottom:14px}
+
+/* ── INPUTS ── */
+label{font-size:10px;font-weight:700;color:var(--text3);display:block;margin-bottom:5px;text-transform:uppercase;letter-spacing:.07em}
+.nm-input{width:100%;padding:10px 13px;border:none;border-radius:var(--r-sm);background:var(--surface2);color:var(--text);font-size:14px;outline:none;font-family:inherit;transition:background .15s;border-bottom:2px solid transparent}
+.nm-input:focus{background:var(--surface3);border-bottom-color:var(--accent)}
+.nm-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%237f8c8d'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+
+/* ── BUTTONS ── */
+.btn{padding:11px 18px;border-radius:var(--r-sm);font-size:12px;font-weight:700;cursor:pointer;border:none;background:var(--surface);color:var(--text2);font-family:inherit;transition:all .15s;white-space:nowrap;text-transform:uppercase;letter-spacing:.5px}
+.btn:active{opacity:.8;transform:scale(.98)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-dark)}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:var(--green-dark)}
+.btn-cardio{background:var(--cardio);color:#fff}
+.btn-cardio:hover{background:var(--cardio-dark)}
+.btn-danger{background:var(--red-light);color:var(--red)}
+.btn-danger:hover{background:var(--red);color:#fff}
+.btn-ghost{background:transparent;color:var(--text2);padding:8px 10px}
+.btn-ghost:hover{color:var(--text)}
+.btn-sm{padding:6px 11px;font-size:10px}
+.btn-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0;font-size:15px;background:var(--surface2);color:var(--text2)}
+.btn-icon:hover{background:var(--accent);color:#fff}
+
+/* ── CHIPS ── */
+.chip{background:var(--surface2);border-radius:var(--r-sm);padding:7px 14px;font-size:12px;cursor:pointer;color:var(--text2);font-weight:700;transition:all .15s;display:inline-block;border:none;font-family:inherit;text-transform:uppercase;letter-spacing:.4px}
+.chip:hover{background:var(--surface3)}
+.chip.sel{background:var(--accent);color:#fff}
+.chip.sel-cardio{background:var(--cardio);color:#fff}
+.chip-row{display:flex;flex-wrap:wrap;gap:7px}
+
+/* ── BADGES ── */
+.badge{display:inline-block;padding:3px 8px;border-radius:var(--r-sm);font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.badge-blue{background:var(--accent-light);color:var(--accent)}
+.badge-green{background:var(--green-light);color:var(--green)}
+.badge-cardio{background:var(--cardio-light);color:var(--cardio)}
+.badge-amber{background:var(--amber-light);color:var(--amber)}
+
+/* ── SET BOXES ── */
+.set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:8px;margin-top:10px}
+.set-box{background:var(--surface2);border-radius:var(--r-sm);padding:9px 6px;text-align:center;cursor:pointer;transition:all .15s;position:relative;border-left:3px solid transparent}
+.set-box:hover{background:var(--surface3);border-left-color:var(--accent)}
+.set-box.done{background:var(--green-light);border-left-color:var(--green)}
+.set-box.done::after{content:'✓';position:absolute;top:3px;right:5px;font-size:9px;color:var(--green);font-weight:700}
+.set-box.skipped{opacity:.3}
+.set-box.editing{background:var(--accent-light);border-left-color:var(--accent)}
+.set-num{font-size:9px;color:var(--text3);margin-bottom:2px;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.set-val{font-size:13px;font-weight:700;color:var(--text)}
+.set-unit{font-size:9px;color:var(--text2);margin-top:1px}
+
+/* ── PROGRESS ── */
+.progress-track{height:5px;background:var(--surface2);border-radius:0;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);transition:width .4s}
+
+/* ── STATS ── */
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.stat{border-radius:var(--r-lg);padding:16px;text-align:center}
+.stat:nth-child(1){background:var(--accent)}
+.stat:nth-child(2){background:var(--green)}
+.stat:nth-child(3){background:var(--cardio)}
+.stat:nth-child(4){background:#e67e22}
+.stat-val{font-size:26px;font-weight:700;color:#fff}
+.stat-label{font-size:10px;color:rgba(255,255,255,.75);margin-top:3px;text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+
+/* ── CALENDAR ── */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-dow{text-align:center;font-size:9px;font-weight:700;color:var(--text3);padding-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--r-sm);font-size:12px;cursor:pointer;transition:all .15s;font-weight:500;color:var(--text2)}
+.cal-day:hover{background:var(--surface2)}
+.cal-day.today{font-weight:800;color:#fff;background:var(--accent)}
+.cal-day.has-log{background:var(--green);color:#fff;font-weight:700}
+.cal-day.has-cardio{background:var(--cardio);color:#fff;font-weight:700}
+.cal-day.empty{opacity:0;pointer-events:none}
+.cal-dot{width:4px;height:4px;border-radius:50%;margin-top:2px;background:rgba(255,255,255,.7)}
+
+/* ── HBAR CHART ── */
+.hbar-wrap{margin-bottom:10px}
+.hbar-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px}
+.hbar-name{font-weight:600;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbar-val{color:var(--text2);font-size:11px}
+.hbar-track{height:16px;background:var(--surface2);border-radius:var(--r-sm);overflow:hidden}
+.hbar-fill{height:100%;border-radius:var(--r-sm);transition:width .5s}
+
+/* ── EX PICK ── */
+.ex-pick-item{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:var(--r-sm);background:var(--surface2);margin-bottom:7px;cursor:pointer;transition:all .15s;border-left:3px solid transparent}
+.ex-pick-item:hover{background:var(--surface3)}
+.ex-pick-item.sel{border-left-color:var(--green);background:var(--green-light)}
+.ex-pick-item.sel-cardio{border-left-color:var(--cardio);background:var(--cardio-light)}
+.ex-pick-check{width:20px;height:20px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;transition:all .15s;color:var(--text3)}
+.ex-pick-item.sel .ex-pick-check{background:var(--green);color:#fff}
+.ex-pick-item.sel-cardio .ex-pick-check{background:var(--cardio);color:#fff}
+.ex-pick-info{flex:1;min-width:0}
+.ex-pick-name{font-size:13px;font-weight:600;margin-bottom:2px}
+.ex-pick-sub{font-size:11px;color:var(--text2)}
+
+/* ── EX LIB ── */
+.ex-lib-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.ex-lib-item:last-child{border-bottom:none}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* ── SECTION TITLE ── */
+.sec-title{font-size:10px;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+
+/* ── MODAL ── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;align-items:flex-end}
+.modal-bg.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--r-xl) var(--r-xl) 0 0;padding:20px 16px 38px;width:100%;max-height:90vh;overflow-y:auto;border-top:4px solid var(--accent)}
+.handle{width:36px;height:4px;background:var(--surface2);border-radius:2px;margin:0 auto 16px}
+.modal-title{font-size:15px;font-weight:700;margin-bottom:16px;text-transform:uppercase;letter-spacing:.5px}
+
+/* ── ADD MORE BTN ── */
+.add-more-btn{border-radius:var(--r-sm);padding:12px;text-align:center;cursor:pointer;color:var(--text3);font-size:12px;font-weight:700;margin-top:4px;background:var(--surface2);transition:all .15s;text-transform:uppercase;letter-spacing:.5px;border:1px dashed var(--border)}
+.add-more-btn:hover{background:var(--accent-light);color:var(--accent);border-color:var(--accent)}
+
+/* ── INLINE EDIT ── */
+.set-inline-edit{display:none;margin-top:10px;padding:12px;background:var(--surface2);border-radius:var(--r-sm);border-left:3px solid var(--accent)}
+.set-inline-edit.open{display:block}
+.inline-row{display:grid;gap:8px;margin-bottom:8px}
+.inline-row.cols2{grid-template-columns:1fr 1fr}
+.inline-row.cols3{grid-template-columns:1fr 1fr 1fr}
+
+/* ── INSTALL ── */
+.install-step{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.install-step:last-child{border-bottom:none}
+.install-num{width:26px;height:26px;border-radius:var(--r-sm);background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.install-txt{font-size:13px;line-height:1.6}
+.install-note{font-size:11px;color:var(--text2);margin-top:2px}
+
+/* timer */
+.timer-display{font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums;background:var(--surface2);border-radius:var(--r-sm);padding:5px 11px;font-weight:700;letter-spacing:1px}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-top">
+    <div class="nav-title">💪 健身記錄</div>
+    <button class="install-btn" onclick="openInstallModal()">手機安裝</button>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('today')">訓練</button>
+    <button class="nav-tab" onclick="showPage('calendar')">月曆</button>
+    <button class="nav-tab" onclick="showPage('dashboard')">統計</button>
+    <button class="nav-tab" onclick="showPage('manage')">動作庫</button>
+  </div>
+</div>
+
+<!-- ═══ TODAY ═══ -->
+<div id="page-today" class="page active">
+  <div id="step-idle">
+    <div class="nm-card" style="text-align:center;padding:36px 18px 28px">
+      <div style="font-size:52px;margin-bottom:12px">🏋️</div>
+      <div style="font-size:18px;font-weight:700;margin-bottom:6px">今天要練什麼？</div>
+      <div style="font-size:13px;color:var(--text2);margin-bottom:22px">選部位 → 選動作 → 開始</div>
+      <button class="btn btn-primary" style="width:100%;font-size:15px;padding:14px" onclick="goStep(1)">開始規劃訓練</button>
+    </div>
+  </div>
+
+  <div id="step-muscle" style="display:none">
+    <div class="nm-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div style="font-size:16px;font-weight:700">選擇訓練部位</div>
+        <span style="font-size:11px;color:var(--text3);font-weight:600">可多選</span>
+      </div>
+      <div class="chip-row" id="muscle-chips"></div>
+      <button class="btn btn-primary" style="width:100%;margin-top:18px" onclick="goStep(2)">下一步：選擇動作 →</button>
+    </div>
+  </div>
+
+  <div id="step-exercises" style="display:none">
+    <div class="nm-card" style="padding:12px 16px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:8px">
+        <button class="btn btn-ghost btn-sm" onclick="goStep(1)">← 返回</button>
+        <div style="font-size:13px;font-weight:600;color:var(--text2)" id="step2-label"></div>
+      </div>
+    </div>
+    <div id="ex-pick-list"></div>
+    <div id="no-ex-msg" style="display:none" class="nm-card">
+      <div style="font-size:13px;color:var(--text2);text-align:center;padding:8px 0">此部位尚無動作<br>請到「動作庫」新增</div>
+    </div>
+    <button id="btn-go-session" class="btn btn-green" style="width:100%;margin-top:4px;font-size:14px;padding:13px" onclick="startSession()">🚀 開始訓練</button>
+  </div>
+
+  <div id="step-session" style="display:none">
+    <div class="nm-card" style="padding:14px 16px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+        <div>
+          <div style="font-size:11px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">今日訓練</div>
+          <div style="font-size:16px;font-weight:700" id="session-label"></div>
+        </div>
+        <div class="timer-display" id="timer">00:00</div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="session-progress" style="width:0%"></div></div>
+      <div style="font-size:10px;color:var(--text3);margin-top:6px;font-weight:600" id="session-progress-label"></div>
+    </div>
+    <div id="session-ex-cards"></div>
+    <div class="add-more-btn" onclick="openAddExModal()">＋ 新增動作</div>
+    <div style="display:flex;gap:10px;margin-top:14px">
+      <button class="btn btn-danger" style="flex:1" onclick="cancelSession()">取消</button>
+      <button class="btn btn-green" style="flex:2;font-size:14px" onclick="finishSession()">完成訓練 ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CALENDAR ═══ -->
+<div id="page-calendar" class="page">
+  <div class="nm-card">
+    <div class="cal-nav">
+      <button class="btn btn-icon" onclick="calPrev()">‹</button>
+      <div class="cal-title" id="cal-title"></div>
+      <button class="btn btn-icon" onclick="calNext()">›</button>
+    </div>
+    <div class="cal-grid" id="cal-dow"></div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div style="display:flex;gap:16px;margin-top:12px;font-size:11px;color:var(--text2);font-weight:600">
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:3px;background:var(--green)"></div>重訓</div>
+      <div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:3px;background:var(--cardio)"></div>有氧</div>
+    </div>
+  </div>
+  <div id="cal-detail" style="display:none">
+    <div class="nm-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="font-size:14px;font-weight:700" id="cal-detail-date"></div>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('cal-detail').style.display='none'">✕</button>
+      </div>
+      <div id="cal-detail-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div id="page-dashboard" class="page">
+  <div class="stat-grid" id="db-stats"></div>
+  <div class="nm-card">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div style="font-size:14px;font-weight:700">訓練總量排行</div>
+      <select id="db-period" onchange="renderDashboard()" class="nm-input nm-select" style="width:auto;padding:6px 28px 6px 10px;font-size:11px">
+        <option value="all">全部</option>
+        <option value="30">近 30 天</option>
+        <option value="7">近 7 天</option>
+      </select>
+    </div>
+    <div style="font-size:10px;color:var(--text3);margin-bottom:10px;font-weight:600">重訓：組×次×重量kg ／ 有氧：分鐘</div>
+    <div id="db-volume-chart"></div>
+  </div>
+  <div class="nm-card">
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px">各部位訓練量</div>
+    <div id="db-muscle-chart"></div>
+  </div>
+  <div class="nm-card">
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px">最大重量 PR</div>
+    <div id="db-pr-list"></div>
+  </div>
+  <div class="nm-card">
+    <div style="font-size:14px;font-weight:700;margin-bottom:12px">有氧最長時間</div>
+    <div id="db-cardio-list"></div>
+  </div>
+</div>
+
+<!-- ═══ MANAGE ═══ -->
+<div id="page-manage" class="page">
+  <div class="nm-card">
+    <div style="font-size:15px;font-weight:700;margin-bottom:3px">新增動作</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:14px">加入動作庫</div>
+    <div style="margin-bottom:10px"><label>動作名稱</label><input type="text" class="nm-input" id="new-name" placeholder="例：深蹲、跑步機…"></div>
+    <div class="row2" style="margin-bottom:10px">
+      <div><label>類別</label>
+        <select class="nm-input nm-select" id="new-muscle" onchange="toggleManageForm()">
+          <option>胸</option><option>背</option><option>肩</option>
+          <option>手臂</option><option>腿</option><option>核心</option>
+          <option>全身</option><option value="有氧">有氧 🏃</option>
+        </select>
+      </div>
+      <div><label>預設組數</label><input type="number" class="nm-input" id="new-sets" value="3" min="1" max="20"></div>
+    </div>
+    <div id="manage-strength-fields" class="row2">
+      <div><label>預設重量(kg)</label><input type="number" class="nm-input" id="new-weight" value="0" min="0" step="2.5"></div>
+      <div><label>預設次數</label><input type="number" class="nm-input" id="new-reps" value="10" min="1"></div>
+    </div>
+    <div id="manage-cardio-fields" style="display:none" class="row2">
+      <div><label>預設時間(分)</label><input type="number" class="nm-input" id="new-duration" value="30" min="1"></div>
+      <div><label>預設心率(bpm)</label><input type="number" class="nm-input" id="new-hr" value="140" min="60" max="220"></div>
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="addExercise()">新增動作</button>
+  </div>
+  <div class="nm-card">
+    <div style="font-size:15px;font-weight:700;margin-bottom:12px">動作庫</div>
+    <div id="exercise-library"></div>
+  </div>
+</div>
+
+<!-- Modal: 組數編輯 -->
+<div class="modal-bg" id="set-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <div class="handle"></div>
+    <div class="modal-title" id="set-modal-title">編輯此組</div>
+    <div id="set-modal-strength">
+      <div class="row2">
+        <div><label>重量 (kg)</label><input type="number" class="nm-input" id="m-weight" min="0" step="2.5"></div>
+        <div><label>次數</label><input type="number" class="nm-input" id="m-reps" min="1"></div>
+      </div>
+    </div>
+    <div id="set-modal-cardio" style="display:none">
+      <div class="row2">
+        <div><label>時間 (分鐘)</label><input type="number" class="nm-input" id="m-duration" min="1"></div>
+        <div><label>心率 (bpm)</label><input type="number" class="nm-input" id="m-hr" min="60" max="220"></div>
+      </div>
+    </div>
+    <div style="margin-top:10px"><label>備註</label><input type="text" class="nm-input" id="m-note" placeholder="感覺、配速…"></div>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn btn-danger btn-sm" style="flex:1" onclick="skipSet()">跳過</button>
+      <button class="btn btn-green" style="flex:2" onclick="saveSet()">完成此組 ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: 訓練中新增動作 -->
+<div class="modal-bg" id="add-ex-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <div class="handle"></div>
+    <div class="modal-title">新增動作至本次訓練</div>
+    <div style="margin-bottom:12px"><label>篩選部位</label>
+      <select class="nm-input nm-select" id="add-ex-filter" onchange="renderAddExList()"><option value="">全部</option></select>
+    </div>
+    <div id="add-ex-list"></div>
+  </div>
+</div>
+
+<!-- Modal: 安裝說明 -->
+<div class="modal-bg" id="install-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal">
+    <div class="handle"></div>
+    <div class="modal-title">如何在手機使用</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:14px">加到主畫面，像 App 一樣開啟</div>
+    <div style="font-size:11px;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">iPhone / iPad（Safari）</div>
+    <div class="install-step"><div class="install-num">1</div><div class="install-txt">用 <b>Safari</b> 開啟工具網址<div class="install-note">https://yohom1975-beep.github.io/workout/workout_tracker.html</div></div></div>
+    <div class="install-step"><div class="install-num">2</div><div class="install-txt">點下方中間「<b>分享</b>」按鈕（方框向上箭頭）</div></div>
+    <div class="install-step"><div class="install-num">3</div><div class="install-txt">選「<b>加入主畫面</b>」→「<b>新增</b>」</div></div>
+    <div style="background:var(--amber-light);border-radius:var(--r-sm);padding:10px 13px;margin-top:14px;font-size:12px;color:var(--amber);font-weight:500">
+      資料存在裝置 Safari 的 localStorage，不需要網路也能使用。
+    </div>
+    <button class="btn btn-primary" style="width:100%;margin-top:16px" onclick="document.getElementById('install-modal').classList.remove('open')">了解了</button>
+  </div>
+</div>
+
+<script>
+const LS_EX='wt_ex4',LS_LOG='wt_log4',LS_SESS='wt_sess4';
+(function(){
+  const pairs=[[LS_EX,['wt_ex3','wt_ex2']],[LS_LOG,['wt_log3','wt_log2']],[LS_SESS,['wt_sess3','wt_sess2']]];
+  pairs.forEach(([nk,oks])=>{if(!localStorage.getItem(nk)){for(const k of oks){const v=localStorage.getItem(k);if(v){localStorage.setItem(nk,v);break;}}}});
+})();
+let exercises=JSON.parse(localStorage.getItem(LS_EX)||'null');
+if(!exercises){
+  exercises=[
+    {id:'e1',name:'臥推',muscle:'胸',sets:4,weight:60,reps:10,isCardio:false},
+    {id:'e2',name:'上斜啞鈴臥推',muscle:'胸',sets:3,weight:20,reps:12,isCardio:false},
+    {id:'e3',name:'飛鳥',muscle:'胸',sets:3,weight:12,reps:15,isCardio:false},
+    {id:'e4',name:'深蹲',muscle:'腿',sets:4,weight:80,reps:8,isCardio:false},
+    {id:'e5',name:'腿推',muscle:'腿',sets:3,weight:100,reps:12,isCardio:false},
+    {id:'e6',name:'羅馬尼亞硬舉',muscle:'腿',sets:3,weight:60,reps:10,isCardio:false},
+    {id:'e7',name:'引體向上',muscle:'背',sets:3,weight:0,reps:8,isCardio:false},
+    {id:'e8',name:'槓鈴划船',muscle:'背',sets:3,weight:50,reps:10,isCardio:false},
+    {id:'e9',name:'肩推',muscle:'肩',sets:3,weight:40,reps:10,isCardio:false},
+    {id:'e10',name:'側平舉',muscle:'肩',sets:3,weight:8,reps:15,isCardio:false},
+    {id:'e11',name:'二頭彎舉',muscle:'手臂',sets:3,weight:15,reps:12,isCardio:false},
+    {id:'e12',name:'三頭下壓',muscle:'手臂',sets:3,weight:20,reps:12,isCardio:false},
+    {id:'e13',name:'捲腹',muscle:'核心',sets:3,weight:0,reps:20,isCardio:false},
+    {id:'e14',name:'快跑',muscle:'有氧',sets:1,duration:20,hr:160,isCardio:true},
+    {id:'e15',name:'快走',muscle:'有氧',sets:1,duration:30,hr:130,isCardio:true},
+    {id:'e16',name:'慢走',muscle:'有氧',sets:1,duration:40,hr:110,isCardio:true},
+    {id:'e17',name:'跑步機',muscle:'有氧',sets:1,duration:30,hr:140,isCardio:true},
+    {id:'e18',name:'腳踏車',muscle:'有氧',sets:1,duration:30,hr:130,isCardio:true},
+    {id:'e19',name:'橢圓機',muscle:'有氧',sets:1,duration:30,hr:130,isCardio:true},
+  ];
+  saveEx();
+}
+let logs=JSON.parse(localStorage.getItem(LS_LOG)||'[]');
+let session=JSON.parse(localStorage.getItem(LS_SESS)||'null');
+let selMuscles=new Set(),selExIds=new Set(),setCtx=null,timerIv=null;
+let calYear,calMonth;
+const MUSCLES=['胸','背','肩','手臂','腿','核心','全身','有氧'];
+const COLORS=['#5b8af0','#3ecf8e','#f0a83e','#f06b6b','#a06bf0','#3ecff0','#f09a3e','#6bf08a'];
+
+function saveEx(){localStorage.setItem(LS_EX,JSON.stringify(exercises));}
+function saveLogs(){localStorage.setItem(LS_LOG,JSON.stringify(logs));}
+function saveSess(){localStorage.setItem(LS_SESS,JSON.stringify(session));}
+function clearSess(){localStorage.removeItem(LS_SESS);session=null;}
+function isCardioMuscle(m){return m==='有氧';}
+
+function showPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+n).classList.add('active');
+  ['today','calendar','dashboard','manage'].forEach((x,i)=>{if(x===n)document.querySelectorAll('.nav-tab')[i].classList.add('active');});
+  if(n==='calendar')renderCalendar();
+  if(n==='dashboard')renderDashboard();
+  if(n==='manage')renderLibrary();
+}
+
+/* ── TODAY ── */
+function goStep(n){
+  ['idle','muscle','exercises','session'].forEach((s,i)=>document.getElementById('step-'+s).style.display=i===n?'block':'none');
+  if(n===1)renderMuscleChips();
+  if(n===2)renderExPicker();
+}
+function renderMuscleChips(){
+  const w=document.getElementById('muscle-chips');w.innerHTML='';
+  MUSCLES.forEach(m=>{
+    const isC=isCardioMuscle(m);
+    const c=document.createElement('button');
+    c.className='chip'+(selMuscles.has(m)?(isC?' sel-cardio':' sel'):'');
+    c.textContent=isC?'🏃 '+m:m;
+    c.onclick=()=>{selMuscles.has(m)?selMuscles.delete(m):selMuscles.add(m);renderMuscleChips();};
+    w.appendChild(c);
+  });
+}
+function renderExPicker(){
+  if(!selMuscles.size){goStep(1);return;}
+  document.getElementById('step2-label').textContent=[...selMuscles].join(' · ');
+  const filtered=exercises.filter(e=>[...selMuscles].includes(e.muscle));
+  const list=document.getElementById('ex-pick-list');
+  const noMsg=document.getElementById('no-ex-msg');
+  const btnS=document.getElementById('btn-go-session');
+  if(!filtered.length){list.innerHTML='';noMsg.style.display='block';btnS.style.display='none';return;}
+  noMsg.style.display='none';btnS.style.display='block';
+  const byM={};filtered.forEach(e=>{if(!byM[e.muscle])byM[e.muscle]=[];byM[e.muscle].push(e);});
+  list.innerHTML=Object.entries(byM).map(([m,exs])=>`
+    <div class="nm-card" style="padding:14px">
+      <div class="sec-title">${isCardioMuscle(m)?'🏃 '+m:m}</div>
+      ${exs.map(e=>{
+        const isSel=selExIds.has(e.id);
+        const selCls=isSel?(e.isCardio?' sel-cardio':' sel'):'';
+        const sub=e.isCardio?`${e.sets}組 · ${e.duration||30}分鐘 · ${e.hr||130}bpm`:`${e.sets}組 · ${e.weight>0?e.weight+'kg':'自重'} × ${e.reps}下`;
+        return `<div class="ex-pick-item${selCls}" id="ep-${e.id}" onclick="toggleEx('${e.id}','${e.isCardio}')">
+          <div class="ex-pick-check">${isSel?'✓':''}</div>
+          <div class="ex-pick-info">
+            <div class="ex-pick-name">${e.name}</div>
+            <div class="ex-pick-sub">${sub}</div>
+          </div>
+          <span class="badge ${e.isCardio?'badge-cardio':'badge-blue'}">${m}</span>
+        </div>`;
+      }).join('')}
+    </div>`).join('');
+}
+function toggleEx(id,isCardioStr){
+  selExIds.has(id)?selExIds.delete(id):selExIds.add(id);
+  const el=document.getElementById('ep-'+id);if(!el)return;
+  const isC=isCardioStr==='true';
+  const isSel=selExIds.has(id);
+  el.classList.remove('sel','sel-cardio');
+  if(isSel)el.classList.add(isC?'sel-cardio':'sel');
+  el.querySelector('.ex-pick-check').textContent=isSel?'✓':'';
+}
+function startSession(){
+  if(!selExIds.size){alert('請至少勾選一個動作');return;}
+  session={muscle:[...selMuscles].join('、'),startAt:Date.now(),
+    exercises:exercises.filter(e=>selExIds.has(e.id)).map(e=>({
+      id:e.id,name:e.name,muscle:e.muscle,isCardio:!!e.isCardio,
+      targetSets:e.sets,
+      defaultWeight:e.weight||0,defaultReps:e.reps||10,
+      defaultDuration:e.duration||30,defaultHr:e.hr||130,
+      sets:Array.from({length:e.sets},(_,i)=>e.isCardio
+        ?{idx:i,duration:e.duration||30,hr:e.hr||130,done:false,skipped:false,note:''}
+        :{idx:i,weight:e.weight||0,reps:e.reps||10,done:false,skipped:false,note:''})
+    }))};
+  saveSess();renderSessionView();
+}
+function renderSessionView(){
+  if(!session)return;
+  goStep(3);
+  document.getElementById('session-label').textContent=session.muscle;
+  clearInterval(timerIv);
+  timerIv=setInterval(()=>{
+    const s=Math.floor((Date.now()-session.startAt)/1000);
+    document.getElementById('timer').textContent=`${Math.floor(s/60).toString().padStart(2,'0')}:${(s%60).toString().padStart(2,'0')}`;
+  },1000);
+  renderSessionCards();updateProgress();
+}
+
+function renderSessionCards(){
+  const wrap=document.getElementById('session-ex-cards');wrap.innerHTML='';
+  session.exercises.forEach((ex,ei)=>{
+    const done=ex.sets.filter(s=>s.done).length;
+    const div=document.createElement('div');div.className='nm-card';div.style.marginBottom='12px';
+    const badgeCls=ex.isCardio?'badge-cardio':'badge-blue';
+    div.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:14px;font-weight:700">${ex.name}</span>
+          <span class="badge ${badgeCls}">${ex.muscle}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:11px;color:var(--text3);font-weight:600">${done}/${ex.targetSets}組</span>
+          <button class="btn btn-danger btn-sm" style="font-size:10px;padding:4px 9px" onclick="removeEx(${ei})">移除</button>
+        </div>
+      </div>
+      <div class="set-grid" id="sg-${ei}"></div>
+      <div id="inline-${ei}" class="set-inline-edit"></div>
+      <button class="btn btn-sm" style="margin-top:9px;font-size:11px" onclick="addSetToEx(${ei})">+ 加組</button>`;
+    wrap.appendChild(div);
+    renderSetGrid(ex,ei);
+  });
+}
+
+function renderSetGrid(ex,ei){
+  const grid=document.getElementById('sg-'+ei);
+  grid.innerHTML='';
+  ex.sets.forEach((s,si)=>{
+    const box=document.createElement('div');
+    box.className='set-box'+(s.done?' done':'')+(s.skipped?' skipped':'');
+    const valLine=ex.isCardio?`${s.duration||30}分`:`${s.weight>0?s.weight+'kg':'自重'}`;
+    const unitLine=ex.isCardio?`❤${s.hr||'—'}bpm`:`×${s.reps}`;
+    box.innerHTML=`<div class="set-num">第${si+1}組</div><div class="set-val">${valLine}</div><div class="set-unit">${unitLine}</div>`;
+    box.onclick=()=>toggleInlineEdit(ei,si,ex.isCardio);
+    grid.appendChild(box);
+  });
+}
+
+function toggleInlineEdit(ei,si,isCardio){
+  const inlineWrap=document.getElementById('inline-'+ei);
+  // If already open for same set, close it
+  if(inlineWrap.dataset.si==si&&inlineWrap.classList.contains('open')){
+    inlineWrap.classList.remove('open');inlineWrap.innerHTML='';
+    return;
+  }
+  const s=session.exercises[ei].sets[si];
+  const ex=session.exercises[ei];
+  // Mark editing box
+  document.querySelectorAll(`#sg-${ei} .set-box`).forEach((b,i)=>{
+    b.classList.remove('editing');if(i===si)b.classList.add('editing');
+  });
+  inlineWrap.dataset.si=si;
+  if(isCardio){
+    inlineWrap.innerHTML=`
+      <div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:8px;text-transform:uppercase">第${si+1}組 · 有氧</div>
+      <div class="inline-row cols2">
+        <div><label>時間(分)</label><input type="number" class="nm-input" id="il-dur-${ei}-${si}" value="${s.duration||30}" min="1"></div>
+        <div><label>心率(bpm)</label><input type="number" class="nm-input" id="il-hr-${ei}-${si}" value="${s.hr||130}" min="60" max="220"></div>
+      </div>
+      <div style="margin-bottom:8px"><label>備註</label><input type="text" class="nm-input" id="il-note-${ei}-${si}" value="${s.note||''}" placeholder="配速、感受…"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-danger btn-sm" onclick="inlineSkip(${ei},${si})">跳過</button>
+        <button class="btn btn-green btn-sm" style="flex:1" onclick="inlineSaveCardio(${ei},${si})">完成 ✓</button>
+      </div>`;
+  } else {
+    inlineWrap.innerHTML=`
+      <div style="font-size:11px;font-weight:700;color:var(--text3);margin-bottom:8px;text-transform:uppercase">第${si+1}組</div>
+      <div class="inline-row cols2">
+        <div><label>重量(kg)</label><input type="number" class="nm-input" id="il-w-${ei}-${si}" value="${s.weight}" min="0" step="2.5"></div>
+        <div><label>次數</label><input type="number" class="nm-input" id="il-r-${ei}-${si}" value="${s.reps}" min="1"></div>
+      </div>
+      <div style="margin-bottom:8px"><label>備註</label><input type="text" class="nm-input" id="il-note-${ei}-${si}" value="${s.note||''}" placeholder="感覺、強度…"></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-danger btn-sm" onclick="inlineSkip(${ei},${si})">跳過</button>
+        <button class="btn btn-green btn-sm" style="flex:1" onclick="inlineSave(${ei},${si})">完成 ✓</button>
+      </div>`;
+  }
+  inlineWrap.classList.add('open');
+  // Auto-focus first input
+  setTimeout(()=>{inlineWrap.querySelector('input')?.focus();},100);
+}
+
+function inlineSave(ei,si){
+  const s=session.exercises[ei].sets[si];
+  s.weight=parseFloat(document.getElementById(`il-w-${ei}-${si}`).value)||0;
+  s.reps=parseInt(document.getElementById(`il-r-${ei}-${si}`).value)||0;
+  s.note=document.getElementById(`il-note-${ei}-${si}`).value;
+  s.done=true;s.skipped=false;
+  const libEx=exercises.find(e=>e.id===session.exercises[ei].id);
+  if(libEx&&s.weight>0){libEx.weight=s.weight;libEx.reps=s.reps;saveEx();}
+  closeInline(ei);saveSess();renderSetGrid(session.exercises[ei],ei);updateProgress();
+}
+function inlineSaveCardio(ei,si){
+  const s=session.exercises[ei].sets[si];
+  s.duration=parseInt(document.getElementById(`il-dur-${ei}-${si}`).value)||30;
+  s.hr=parseInt(document.getElementById(`il-hr-${ei}-${si}`).value)||130;
+  s.note=document.getElementById(`il-note-${ei}-${si}`).value;
+  s.done=true;s.skipped=false;
+  closeInline(ei);saveSess();renderSetGrid(session.exercises[ei],ei);updateProgress();
+}
+function inlineSkip(ei,si){
+  session.exercises[ei].sets[si].skipped=true;
+  closeInline(ei);saveSess();renderSetGrid(session.exercises[ei],ei);updateProgress();
+}
+function closeInline(ei){
+  const w=document.getElementById('inline-'+ei);
+  w.classList.remove('open');w.innerHTML='';
+  document.querySelectorAll(`#sg-${ei} .set-box`).forEach(b=>b.classList.remove('editing'));
+}
+
+// Keep legacy modal for in-session add
+function openSetModal(ei,si){}
+function saveSet(){}
+function skipSet(){}
+
+function addSetToEx(ei){
+  const ex=session.exercises[ei];ex.targetSets++;
+  ex.sets.push(ex.isCardio
+    ?{idx:ex.sets.length,duration:ex.defaultDuration,hr:ex.defaultHr,done:false,skipped:false,note:''}
+    :{idx:ex.sets.length,weight:ex.defaultWeight,reps:ex.defaultReps,done:false,skipped:false,note:''});
+  saveSess();renderSetGrid(ex,ei);updateProgress();
+  // Re-render set count badge
+  const badge=document.querySelector(`#session-ex-cards .nm-card:nth-child(${ei+1}) span[style*="text3"]`);
+  const done=ex.sets.filter(s=>s.done).length;
+  document.querySelectorAll('#session-ex-cards .nm-card').forEach((card,i)=>{
+    if(i===ei){
+      const spans=card.querySelectorAll('span');
+      spans.forEach(sp=>{if(sp.textContent.includes('/')&&sp.style.color==='')sp.textContent=`${done}/${ex.targetSets}組`;});
+    }
+  });
+}
+function removeEx(ei){
+  if(!confirm('確定移除此動作？'))return;
+  session.exercises.splice(ei,1);saveSess();renderSessionCards();updateProgress();
+}
+function updateProgress(){
+  if(!session)return;
+  const total=session.exercises.reduce((s,e)=>s+e.sets.length,0);
+  const done=session.exercises.reduce((s,e)=>s+e.sets.filter(x=>x.done||x.skipped).length,0);
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('session-progress').style.width=pct+'%';
+  document.getElementById('session-progress-label').textContent=`${done} / ${total} 組完成`;
+}
+function openAddExModal(){
+  const cur=new Set(session.exercises.map(e=>e.id));
+  const avail=exercises.filter(e=>!cur.has(e.id));
+  const sel=document.getElementById('add-ex-filter');
+  sel.innerHTML='<option value="">全部</option>'+[...new Set(avail.map(e=>e.muscle))].map(m=>`<option>${m}</option>`).join('');
+  renderAddExList();document.getElementById('add-ex-modal').classList.add('open');
+}
+function renderAddExList(){
+  const filter=document.getElementById('add-ex-filter').value;
+  const cur=new Set(session.exercises.map(e=>e.id));
+  const avail=exercises.filter(e=>!cur.has(e.id)&&(!filter||e.muscle===filter));
+  const wrap=document.getElementById('add-ex-list');
+  if(!avail.length){wrap.innerHTML='<div style="text-align:center;padding:16px 0;color:var(--text3);font-size:13px">沒有可新增的動作</div>';return;}
+  wrap.innerHTML=avail.map(e=>{
+    const sub=e.isCardio?`${e.sets}組 · ${e.duration||30}分鐘 · ${e.hr||130}bpm`:`${e.sets}組 · ${e.weight>0?e.weight+'kg':'自重'} × ${e.reps}下`;
+    return `<div class="ex-pick-item" id="aep-${e.id}" onclick="addExToSession('${e.id}')">
+      <div class="ex-pick-check" style="font-size:15px">+</div>
+      <div class="ex-pick-info">
+        <div class="ex-pick-name">${e.name} <span class="badge ${e.isCardio?'badge-cardio':'badge-blue'}">${e.muscle}</span></div>
+        <div class="ex-pick-sub">${sub}</div>
+      </div></div>`;
+  }).join('');
+}
+function addExToSession(id){
+  const ex=exercises.find(e=>e.id===id);if(!ex)return;
+  session.exercises.push({id:ex.id,name:ex.name,muscle:ex.muscle,isCardio:!!ex.isCardio,
+    targetSets:ex.sets,defaultWeight:ex.weight||0,defaultReps:ex.reps||10,
+    defaultDuration:ex.duration||30,defaultHr:ex.hr||130,
+    sets:Array.from({length:ex.sets},(_,i)=>ex.isCardio
+      ?{idx:i,duration:ex.duration||30,hr:ex.hr||130,done:false,skipped:false,note:''}
+      :{idx:i,weight:ex.weight||0,reps:ex.reps||10,done:false,skipped:false,note:''})});
+  if(!session.muscle.includes(ex.muscle))session.muscle+='·'+ex.muscle;
+  saveSess();
+  const el=document.getElementById('aep-'+id);
+  if(el){el.style.opacity='.4';el.style.pointerEvents='none';el.querySelector('.ex-pick-check').textContent='✓';}
+  renderSessionCards();updateProgress();
+  document.getElementById('session-label').textContent=session.muscle;
+}
+function finishSession(){
+  const doneSets=session.exercises.reduce((s,e)=>s+e.sets.filter(x=>x.done).length,0);
+  if(doneSets===0&&!confirm('尚未完成任何組數，確定結束？'))return;
+  const duration=Math.max(1,Math.floor((Date.now()-session.startAt)/1000/60));
+  logs.unshift({id:'log_'+Date.now(),date:new Date().toISOString(),muscle:session.muscle,duration,
+    exercises:session.exercises.map(e=>({name:e.name,muscle:e.muscle,isCardio:!!e.isCardio,
+      sets:e.sets.filter(s=>s.done).map(s=>s.isCardio||e.isCardio
+        ?{duration:s.duration,hr:s.hr,note:s.note,isCardio:true}
+        :{weight:s.weight,reps:s.reps,note:s.note})}))});
+  saveLogs();clearInterval(timerIv);clearSess();
+  selMuscles.clear();selExIds.clear();
+  alert(`訓練完成！共 ${duration} 分鐘，完成 ${doneSets} 組 💪`);
+  goStep(0);
+}
+function cancelSession(){
+  if(!confirm('確定取消？本次記錄不會儲存'))return;
+  clearInterval(timerIv);clearSess();selMuscles.clear();selExIds.clear();goStep(0);
+}
+
+/* ── CALENDAR ── */
+function renderCalendar(){
+  const now=new Date();
+  if(calYear===undefined){calYear=now.getFullYear();calMonth=now.getMonth();}
+  document.getElementById('cal-title').textContent=`${calYear} 年 ${calMonth+1} 月`;
+  document.getElementById('cal-dow').innerHTML=['日','一','二','三','四','五','六'].map(d=>`<div class="cal-dow">${d}</div>`).join('');
+  const first=new Date(calYear,calMonth,1).getDay();
+  const days=new Date(calYear,calMonth+1,0).getDate();
+  const logDays={};
+  logs.forEach(l=>{
+    const d=new Date(l.date);
+    if(d.getFullYear()===calYear&&d.getMonth()===calMonth){
+      const k=d.getDate();if(!logDays[k])logDays[k]=[];logDays[k].push(l);
+    }
+  });
+  let html='';
+  for(let i=0;i<first;i++)html+=`<div class="cal-day empty"></div>`;
+  for(let d=1;d<=days;d++){
+    const isToday=d===now.getDate()&&calYear===now.getFullYear()&&calMonth===now.getMonth();
+    const dayLogs=logDays[d]||[];
+    const hasAny=dayLogs.length>0;
+    const hasCardio=dayLogs.some(l=>l.exercises.some(e=>e.isCardio));
+    const hasStrength=dayLogs.some(l=>l.exercises.some(e=>!e.isCardio));
+    let cls='cal-day'+(isToday?' today':'')+(hasCardio&&!hasStrength?' has-cardio':hasAny?' has-log':'');
+    html+=`<div class="${cls}" onclick="showCalDetail(${d})">${d}${hasAny?`<div class="cal-dot"></div>`:''}</div>`;
+  }
+  document.getElementById('cal-grid').innerHTML=html;
+}
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
+function showCalDetail(day){
+  const dayLogs=logs.filter(l=>{const d=new Date(l.date);return d.getFullYear()===calYear&&d.getMonth()===calMonth&&d.getDate()===day;});
+  const det=document.getElementById('cal-detail');
+  if(!dayLogs.length){det.style.display='none';return;}
+  document.getElementById('cal-detail-date').textContent=`${calYear}/${calMonth+1}/${day}`;
+  document.getElementById('cal-detail-body').innerHTML=dayLogs.map(log=>`
+    <div style="margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px">${log.muscle} · ${log.duration||0} 分鐘</div>
+      ${log.exercises.filter(e=>e.sets.length>0).map(e=>{
+        const rows=e.sets.map((s,i)=>`
+          <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:12px">
+            <span style="color:var(--text3);font-weight:600">第${i+1}組</span>
+            <span>${e.isCardio?`${s.duration||0}分鐘 · ❤ ${s.hr||0}bpm`:`${s.weight>0?s.weight+'kg':'自重'} × ${s.reps}下`}${s.note?` <span style="color:var(--text3)">(${s.note})</span>`:''}</span>
+          </div>`).join('');
+        const vol=e.isCardio
+          ?e.sets.reduce((s,x)=>s+(x.duration||0),0)+'分鐘'
+          :e.sets.reduce((s,x)=>s+x.reps*(x.weight||0),0)+'kg';
+        return `<div style="margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
+            <span style="font-size:13px;font-weight:700">${e.name}</span>
+            <span class="badge ${e.isCardio?'badge-cardio':'badge-blue'}">${e.muscle}</span>
+          </div>${rows}
+          <div style="font-size:10px;color:var(--text2);margin-top:4px;font-weight:600">訓練量：${vol}</div>
+        </div>`;
+      }).join('')}
+    </div>`).join('<hr style="border:none;border-top:1px solid rgba(0,0,0,.07);margin:10px 0">');
+  det.style.display='block';det.scrollIntoView({behavior:'smooth'});
+}
+
+/* ── DASHBOARD ── */
+function renderDashboard(){
+  const period=parseInt(document.getElementById('db-period').value)||0;
+  const now=Date.now();
+  const filtered=period>0?logs.filter(l=>(now-new Date(l.date).getTime())/86400000<=period):logs;
+  const totalSess=filtered.length;
+  const totalSets=filtered.reduce((s,l)=>s+l.exercises.reduce((a,e)=>a+e.sets.length,0),0);
+  const totalMin=filtered.reduce((s,l)=>s+(l.duration||0),0);
+  const totalVol=Math.round(filtered.reduce((s,l)=>s+l.exercises.filter(e=>!e.isCardio).reduce((a,e)=>a+e.sets.reduce((v,s)=>v+s.reps*(s.weight||0),0),0),0)/1000);
+  document.getElementById('db-stats').innerHTML=`
+    <div class="stat"><div class="stat-val">${totalSess}</div><div class="stat-label">訓練次數</div></div>
+    <div class="stat"><div class="stat-val">${totalSets}</div><div class="stat-label">總組數</div></div>
+    <div class="stat"><div class="stat-val">${totalMin}</div><div class="stat-label">累積分鐘</div></div>
+    <div class="stat"><div class="stat-val">${totalVol}t</div><div class="stat-label">重訓總量</div></div>`;
+  // volume chart
+  const exVol={};
+  filtered.forEach(l=>l.exercises.forEach(e=>{
+    if(!exVol[e.name])exVol[e.name]=0;
+    exVol[e.name]+=e.isCardio
+      ?e.sets.reduce((s,x)=>s+(x.duration||0),0)
+      :e.sets.reduce((s,x)=>s+x.reps*(x.weight||0),0);
+  }));
+  const sorted=Object.entries(exVol).sort((a,b)=>b[1]-a[1]);
+  const maxV=sorted.length?sorted[0][1]:1;
+  const volWrap=document.getElementById('db-volume-chart');
+  volWrap.innerHTML=!sorted.length?'<div style="color:var(--text3);font-size:13px;text-align:center;padding:16px 0">尚無資料</div>':
+    sorted.map(([name,vol],i)=>{
+      const ex=exercises.find(e=>e.name===name);
+      const unit=ex?.isCardio?'分':' kg';
+      return `<div class="hbar-wrap">
+        <div class="hbar-label"><div class="hbar-name">${name}</div><div class="hbar-val">${vol.toLocaleString()}${unit}</div></div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:${Math.round(vol/maxV*100)}%;background:${COLORS[i%COLORS.length]}"></div></div>
+      </div>`;
+    }).join('');
+  // muscle chart
+  const mVol={};
+  filtered.forEach(l=>l.exercises.forEach(e=>{
+    if(!mVol[e.muscle])mVol[e.muscle]=0;
+    mVol[e.muscle]+=e.isCardio?e.sets.reduce((s,x)=>s+(x.duration||0),0):e.sets.reduce((s,x)=>s+x.reps*(x.weight||0),0);
+  }));
+  const mSorted=Object.entries(mVol).sort((a,b)=>b[1]-a[1]);
+  const mMax=mSorted.length?mSorted[0][1]:1;
+  document.getElementById('db-muscle-chart').innerHTML=!mSorted.length?'<div style="color:var(--text3);font-size:13px;text-align:center;padding:16px 0">尚無資料</div>':
+    mSorted.map(([m,v],i)=>{
+      const isC=isCardioMuscle(m);
+      return `<div class="hbar-wrap">
+        <div class="hbar-label"><div class="hbar-name">${m}</div><div class="hbar-val">${v.toLocaleString()}${isC?'分':' kg'}</div></div>
+        <div class="hbar-track"><div class="hbar-fill" style="width:${Math.round(v/mMax*100)}%;background:${COLORS[i%COLORS.length]}"></div></div>
+      </div>`;
+    }).join('');
+  // PR (strength)
+  const prMap={};
+  filtered.forEach(l=>l.exercises.filter(e=>!e.isCardio).forEach(e=>{
+    e.sets.forEach(s=>{if(s.weight>0&&(!prMap[e.name]||s.weight>prMap[e.name]))prMap[e.name]=s.weight;});
+  }));
+  const prSorted=Object.entries(prMap).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('db-pr-list').innerHTML=!prSorted.length?'<div style="color:var(--text3);font-size:13px;text-align:center;padding:16px 0">尚無記錄</div>':
+    prSorted.map(([name,w])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.06)">
+      <span style="font-size:13px;font-weight:600">${name}</span>
+      <span class="badge badge-green">${w} kg</span>
+    </div>`).join('');
+  // Cardio best
+  const cardioMap={};
+  filtered.forEach(l=>l.exercises.filter(e=>e.isCardio).forEach(e=>{
+    const tot=e.sets.reduce((s,x)=>s+(x.duration||0),0);
+    if(!cardioMap[e.name]||tot>cardioMap[e.name])cardioMap[e.name]=tot;
+  }));
+  const cardioSorted=Object.entries(cardioMap).sort((a,b)=>b[1]-a[1]);
+  document.getElementById('db-cardio-list').innerHTML=!cardioSorted.length?'<div style="color:var(--text3);font-size:13px;text-align:center;padding:16px 0">尚無記錄</div>':
+    cardioSorted.map(([name,min])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.06)">
+      <span style="font-size:13px;font-weight:600">${name}</span>
+      <span class="badge badge-cardio">${min} 分鐘</span>
+    </div>`).join('');
+}
+
+/* ── MANAGE ── */
+function toggleManageForm(){
+  const isC=document.getElementById('new-muscle').value==='有氧';
+  document.getElementById('manage-strength-fields').style.display=isC?'none':'grid';
+  document.getElementById('manage-cardio-fields').style.display=isC?'grid':'none';
+}
+function renderLibrary(){
+  const wrap=document.getElementById('exercise-library');
+  if(!exercises.length){wrap.innerHTML='<div style="text-align:center;padding:24px 0;color:var(--text3);font-size:13px">尚無動作</div>';return;}
+  const byM={};exercises.forEach(e=>{if(!byM[e.muscle])byM[e.muscle]=[];byM[e.muscle].push(e);});
+  wrap.innerHTML=Object.entries(byM).map(([m,exs])=>`
+    <div style="margin-bottom:16px">
+      <div class="sec-title">${isCardioMuscle(m)?'🏃 '+m:m}</div>
+      ${exs.map(e=>`<div class="ex-lib-item">
+        <div>
+          <div style="font-size:13px;font-weight:600">${e.name}</div>
+          <div style="font-size:11px;color:var(--text2)">${e.isCardio?`${e.sets}組 · ${e.duration||30}分 · ${e.hr||130}bpm`:`${e.sets}組 · ${e.weight>0?e.weight+'kg':'自重'} × ${e.reps}下`}</div>
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="deleteExercise('${e.id}')">刪除</button>
+      </div>`).join('')}
+    </div>`).join('');
+}
+function addExercise(){
+  const name=document.getElementById('new-name').value.trim();
+  if(!name){alert('請輸入動作名稱');return;}
+  const muscle=document.getElementById('new-muscle').value;
+  const isCardio=muscle==='有氧';
+  const ex={id:'e_'+Date.now(),name,muscle,
+    sets:parseInt(document.getElementById('new-sets').value)||3,
+    isCardio};
+  if(isCardio){
+    ex.duration=parseInt(document.getElementById('new-duration').value)||30;
+    ex.hr=parseInt(document.getElementById('new-hr').value)||130;
+  } else {
+    ex.weight=parseFloat(document.getElementById('new-weight').value)||0;
+    ex.reps=parseInt(document.getElementById('new-reps').value)||10;
+  }
+  exercises.push(ex);saveEx();
+  document.getElementById('new-name').value='';renderLibrary();
+}
+function deleteExercise(id){
+  if(!confirm('確定刪除此動作？'))return;
+  exercises=exercises.filter(e=>e.id!==id);saveEx();renderLibrary();
+}
+function openInstallModal(){document.getElementById('install-modal').classList.add('open');}
+
+if(session){renderSessionView();}else{goStep(0);}
+</script>
+</body>
+</html>
