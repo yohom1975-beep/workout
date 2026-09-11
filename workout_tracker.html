@@ -12,8 +12,8 @@
       --bg-color: #000000;
       --card-bg: #1c1c1e;
       --card-sub-bg: #2c2c2e;
-      --accent: #ff453a; /* Apple Activity Red/Orange */
-      --accent-green: #30d158; /* Apple Fitness Green */
+      --accent: #ff453a;
+      --accent-green: #30d158;
       --accent-blue: #0a84ff;
       --text-main: #ffffff;
       --text-muted: #8e8e93;
@@ -39,7 +39,6 @@
       line-height: 1.5;
     }
 
-    /* Header */
     header {
       padding: 24px 20px 14px 20px;
       display: flex;
@@ -47,14 +46,14 @@
       align-items: center;
       position: sticky;
       top: 0;
-      background: rgba(0, 0, 0, 0.82);
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       z-index: 100;
       border-bottom: 1px solid var(--border-color);
     }
     .header-title {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
       letter-spacing: -0.5px;
       display: flex;
@@ -63,22 +62,20 @@
     }
     .header-badge {
       font-size: 11px;
-      background: rgba(255, 69, 58, 0.18);
-      color: var(--accent);
+      background: rgba(48, 209, 88, 0.18);
+      color: var(--accent-green);
       padding: 3px 8px;
       border-radius: 20px;
       font-weight: 600;
       letter-spacing: 0.5px;
     }
 
-    /* App Container */
     .container {
       max-width: 680px;
       margin: 0 auto;
       padding: 16px 16px;
     }
 
-    /* Tabs Content */
     .tab-pane {
       display: none;
       animation: fadeIn 0.25s ease-out;
@@ -91,7 +88,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Cards */
     .card {
       background-color: var(--card-bg);
       border-radius: var(--radius-lg);
@@ -108,7 +104,6 @@
       align-items: center;
     }
 
-    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -149,7 +144,6 @@
       border-radius: var(--radius-sm);
     }
 
-    /* Muscle Category Badges */
     .category-chips {
       display: flex;
       flex-wrap: wrap;
@@ -173,7 +167,6 @@
       font-weight: 700;
     }
 
-    /* Exercise Item Card */
     .exercise-block {
       background: var(--card-bg);
       border-radius: var(--radius-lg);
@@ -202,7 +195,6 @@
       margin-left: 6px;
     }
 
-    /* Sets Table */
     .sets-table {
       width: 100%;
       border-collapse: collapse;
@@ -261,7 +253,6 @@
       font-weight: 900;
     }
 
-    /* Rest Timer Floating Sheet / Modal */
     #rest-timer-modal {
       position: fixed;
       bottom: 95px;
@@ -307,7 +298,6 @@
       gap: 8px;
     }
 
-    /* Bottom Navigation Bar */
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
@@ -345,7 +335,6 @@
       font-size: 22px;
     }
 
-    /* List & Form Controls */
     .form-group {
       margin-bottom: 14px;
     }
@@ -380,7 +369,6 @@
       border-bottom: none;
     }
 
-    /* Simple Modal */
     .modal-backdrop {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -398,7 +386,7 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-color);
       width: 100%;
-      max-width: 440px;
+      max-width: 460px;
       padding: 24px;
       box-shadow: 0 16px 40px rgba(0,0,0,0.8);
     }
@@ -412,8 +400,11 @@
       <span>💪 健身記錄</span>
       <span class="header-badge">PRO</span>
     </div>
-    <div id="session-timer" style="font-size: 15px; font-weight: 700; color: var(--text-muted); font-variant-numeric: tabular-nums;">
-      00:00
+    <div style="text-align: right;">
+      <div id="session-timer" style="font-size: 16px; font-weight: 700; color: var(--accent-green); font-variant-numeric: tabular-nums;">
+        00:00
+      </div>
+      <div style="font-size: 10px; color: var(--text-muted);">訓練進行中</div>
     </div>
   </header>
 
@@ -422,7 +413,7 @@
     <!-- 1. 今日訓練分頁 (WORKOUT TAB) -->
     <section id="tab-workout" class="tab-pane active">
       <div class="card" style="margin-bottom: 14px;">
-        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">快速篩選部位</div>
+        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">快速篩選目標部位</div>
         <div class="category-chips" id="filter-chips">
           <span class="chip active" onclick="filterWorkoutCategory('全部')">全部</span>
           <span class="chip" onclick="filterWorkoutCategory('胸')">胸</span>
@@ -434,7 +425,7 @@
           <span class="chip" onclick="filterWorkoutCategory('有氧')">有氧 🏃</span>
         </div>
         <button class="btn btn-primary" style="width: 100%;" onclick="openAddExerciseToSessionModal()">
-          ＋ 新增訓練動作
+          🔍 選擇或直接輸入動作
         </button>
       </div>
 
@@ -474,7 +465,7 @@
       <div class="card">
         <div class="card-title">💾 數據備份與還原</div>
         <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-          所有訓練資料儲存在手機本機 (localStorage)。定期下載 JSON 備份可防止 Safari 清除暫存或換機時資料遺失。
+          訓練資料儲存在手機本機。定期下載 JSON 備份可防止清理暫存或換機時資料遺失。
         </p>
         <div style="display: flex; flex-direction: column; gap: 10px;">
           <button class="btn btn-secondary" onclick="exportFullBackupJSON()">
@@ -545,22 +536,37 @@
     </button>
   </nav>
 
-  <!-- Modal: 選擇動作加入訓練 -->
+  <!-- Modal: 搜尋或即時新增動作 -->
   <div class="modal-backdrop" id="modal-add-exercise">
     <div class="modal-box">
-      <div class="card-title">
-        <span>選擇訓練動作</span>
+      <div class="card-title" style="margin-bottom: 8px;">
+        <span>選擇或輸入訓練動作</span>
         <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-add-exercise')">✕</button>
       </div>
-      <div id="modal-exercise-list" style="max-height: 320px; overflow-y: auto; margin-top: 10px;"></div>
+
+      <!-- 快速輸入/搜尋框 -->
+      <div style="margin-bottom: 12px;">
+        <input type="text" id="quick-exercise-input" class="form-control" 
+               placeholder="輸入動作名稱（例如：機械上斜推胸、六角槓硬舉）..." 
+               oninput="filterOrSuggestExercise(this.value)">
+      </div>
+
+      <!-- 若動作庫沒有，直接即時建立按鈕 -->
+      <div id="quick-add-btn-container" style="margin-bottom: 12px; display: none;">
+        <button class="btn btn-primary" style="width: 100%; font-size: 14px;" onclick="quickCreateAndAddToSession()">
+          ＋ 動作庫無此動作，點此直接建立並加入訓練！
+        </button>
+      </div>
+
+      <div id="modal-exercise-list" style="max-height: 280px; overflow-y: auto;"></div>
     </div>
   </div>
 
-  <!-- Modal: 新增自訂動作 -->
+  <!-- Modal: 動作庫專屬新增動作 -->
   <div class="modal-backdrop" id="modal-custom-exercise">
     <div class="modal-box">
       <div class="card-title">
-        <span>新增自訂動作</span>
+        <span>新增動作至動作庫</span>
         <button class="btn btn-secondary btn-sm" onclick="closeModal('modal-custom-exercise')">✕</button>
       </div>
       <div class="form-group">
@@ -590,29 +596,23 @@
        1. 預設動作範本庫 (Default Exercise Templates)
        ========================================================================== */
     const DEFAULT_EXERCISES = [
-      // 胸
       { id: 'ex_1', name: '槓鈴平躺臥推', category: '胸' },
       { id: 'ex_2', name: '上斜啞鈴臥推', category: '胸' },
       { id: 'ex_3', name: '滑輪夾胸', category: '胸' },
       { id: 'ex_4', name: '雙槓體撐', category: '胸' },
-      // 背
       { id: 'ex_5', name: '滑輪下拉', category: '背' },
       { id: 'ex_6', name: '槓鈴划船', category: '背' },
       { id: 'ex_7', name: '坐姿滑輪划船', category: '背' },
       { id: 'ex_8', name: '引體向上', category: '背' },
-      // 腿
       { id: 'ex_9', name: '槓鈴深蹲', category: '腿' },
       { id: 'ex_10', name: '羅馬尼亞硬舉 (RDL)', category: '腿' },
       { id: 'ex_11', name: '機械腿推舉', category: '腿' },
       { id: 'ex_12', name: '俯臥腿後彎舉', category: '腿' },
-      // 肩
       { id: 'ex_13', name: '槓鈴肩推 (OHP)', category: '肩' },
       { id: 'ex_14', name: '啞鈴側平舉', category: '肩' },
       { id: 'ex_15', name: '滑輪面拉', category: '肩' },
-      // 手臂
       { id: 'ex_16', name: '二頭槓鈴彎舉', category: '手臂' },
       { id: 'ex_17', name: '三頭肌滑輪下壓', category: '手臂' },
-      // 核心與有氧
       { id: 'ex_18', name: '棒式', category: '核心' },
       { id: 'ex_19', name: '跑步機 / 慢跑', category: '有氧' },
       { id: 'ex_20', name: '飛輪腳踏車', category: '有氧' }
@@ -621,26 +621,32 @@
     /* 全域狀態 */
     let exercises = [];
     let currentSessionExercises = [];
-    let sessionSeconds = 0;
-    let sessionTimerInterval = null;
     let currentCategoryFilter = '全部';
 
-    // 倒數休息計時
+    // 訓練計時 (絕對時間戳記法：離開網頁背景不中斷)
+    let sessionStartTime = null;
+    let sessionTimerInterval = null;
+    let totalElapsedSeconds = 0;
+
+    // 組間休息倒數計時 (絕對時間戳記法)
+    let restEndTime = null;
     let restTimerInterval = null;
-    let restSecondsLeft = 0;
     let userDefaultRestSec = 90;
 
     /* 初始化 */
     window.addEventListener('DOMContentLoaded', () => {
       loadStorageData();
+      restoreSessionFromStorage();
       renderCurrentSession();
       renderExerciseLibrary();
       renderHistoryList();
-      startSessionTimer();
+      initWakeLock();
+
+      // 監聽螢幕與 App 切換事件：切回網頁時瞬間校正時間
+      document.addEventListener('visibilitychange', handleVisibilityChange);
     });
 
     function loadStorageData() {
-      // 動作庫
       const storedEx = localStorage.getItem('workout_exercises');
       if (!storedEx || JSON.parse(storedEx).length === 0) {
         exercises = DEFAULT_EXERCISES;
@@ -649,7 +655,6 @@
         exercises = JSON.parse(storedEx);
       }
 
-      // 休息時長設定
       const storedRest = localStorage.getItem('workout_rest_sec');
       if (storedRest) {
         userDefaultRestSec = parseInt(storedRest, 10);
@@ -658,8 +663,72 @@
       }
     }
 
+    /* 持久化儲存當前訓練中的組數（避免意外刷新/關閉分頁遺失） */
+    function saveActiveSessionToStorage() {
+      localStorage.setItem('active_workout_session', JSON.stringify({
+        startTime: sessionStartTime,
+        exercises: currentSessionExercises
+      }));
+    }
+
+    function restoreSessionFromStorage() {
+      const saved = localStorage.getItem('active_workout_session');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          if (data && data.exercises && data.exercises.length > 0) {
+            currentSessionExercises = data.exercises;
+            sessionStartTime = data.startTime || Date.now();
+            startSessionTimer();
+            return;
+          }
+        } catch(e) {}
+      }
+    }
+
     /* ==========================================================================
-       2. 今日訓練邏輯 (Session & Auto-carry Set Values)
+       2. 背景不中斷：時間戳記計時器 (Session Timer)
+       ========================================================================== */
+    function startSessionTimer() {
+      if (!sessionStartTime) {
+        sessionStartTime = Date.now();
+      }
+      clearInterval(sessionTimerInterval);
+      updateSessionDisplay();
+      sessionTimerInterval = setInterval(updateSessionDisplay, 1000);
+      saveActiveSessionToStorage();
+    }
+
+    function updateSessionDisplay() {
+      if (!sessionStartTime) return;
+      const now = Date.now();
+      totalElapsedSeconds = Math.max(0, Math.floor((now - sessionStartTime) / 1000));
+
+      const m = Math.floor(totalElapsedSeconds / 60).toString().padStart(2, '0');
+      const s = (totalElapsedSeconds % 60).toString().padStart(2, '0');
+      const el = document.getElementById('session-timer');
+      if (el) el.innerText = `${m}:${s}`;
+    }
+
+    function handleVisibilityChange() {
+      if (document.visibilityState === 'visible') {
+        updateSessionDisplay();
+        if (restEndTime) {
+          updateRestCountdownDisplay();
+        }
+      }
+    }
+
+    async function initWakeLock() {
+      if ('wakeLock' in navigator) {
+        try {
+          await navigator.wakeLock.request('screen');
+        } catch (err) {}
+      }
+    }
+
+    /* ==========================================================================
+       3. 今日訓練與即時動作選取/輸入
        ========================================================================== */
     function filterWorkoutCategory(cat) {
       currentCategoryFilter = cat;
@@ -674,17 +743,34 @@
     }
 
     function openAddExerciseToSessionModal() {
-      const modalList = document.getElementById('modal-exercise-list');
-      modalList.innerHTML = '';
-      
-      const filtered = currentCategoryFilter === '全部' 
+      const inputEl = document.getElementById('quick-exercise-input');
+      if (inputEl) inputEl.value = '';
+      document.getElementById('quick-add-btn-container').style.display = 'none';
+
+      filterOrSuggestExercise('');
+      openModal('modal-add-exercise');
+    }
+
+    function filterOrSuggestExercise(keyword) {
+      const listContainer = document.getElementById('modal-exercise-list');
+      const quickBtnContainer = document.getElementById('quick-add-btn-container');
+      const trimmed = keyword.trim().toLowerCase();
+
+      let pool = currentCategoryFilter === '全部' 
         ? exercises 
         : exercises.filter(e => e.category === currentCategoryFilter);
 
-      if (filtered.length === 0) {
-        modalList.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">此部位尚無動作，請至「動作庫」新增</div>';
+      let matched = pool;
+      if (trimmed) {
+        matched = pool.filter(e => e.name.toLowerCase().includes(trimmed));
+      }
+
+      listContainer.innerHTML = '';
+
+      if (matched.length === 0) {
+        listContainer.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:18px; font-size:14px;">查無相符動作，可直接點擊上方按鈕建立！</div>';
       } else {
-        filtered.forEach(item => {
+        matched.forEach(item => {
           const div = document.createElement('div');
           div.className = 'data-list-item';
           div.innerHTML = `
@@ -694,15 +780,47 @@
             </div>
             <button class="btn btn-secondary btn-sm" onclick="addExerciseToCurrentSession('${item.id}')">選擇</button>
           `;
-          modalList.appendChild(div);
+          listContainer.appendChild(div);
         });
       }
-      openModal('modal-add-exercise');
+
+      const exactMatch = exercises.some(e => e.name.toLowerCase() === trimmed);
+      if (trimmed && !exactMatch) {
+        quickBtnContainer.style.display = 'block';
+      } else {
+        quickBtnContainer.style.display = 'none';
+      }
+    }
+
+    function quickCreateAndAddToSession() {
+      const inputEl = document.getElementById('quick-exercise-input');
+      const name = inputEl.value.trim();
+      if (!name) return;
+
+      const cat = (currentCategoryFilter === '全部' || currentCategoryFilter === '有氧 🏃') 
+        ? (currentCategoryFilter === '有氧 🏃' ? '有氧' : '自訂') 
+        : currentCategoryFilter;
+
+      const newEx = {
+        id: 'custom_' + Date.now(),
+        name: name,
+        category: cat
+      };
+
+      exercises.push(newEx);
+      localStorage.setItem('workout_exercises', JSON.stringify(exercises));
+      renderExerciseLibrary();
+
+      addExerciseToCurrentSession(newEx.id);
     }
 
     function addExerciseToCurrentSession(id) {
       const ex = exercises.find(e => e.id === id);
       if (!ex) return;
+
+      if (!sessionStartTime) {
+        startSessionTimer();
+      }
 
       currentSessionExercises.push({
         sessionExId: 'sex_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
@@ -714,6 +832,7 @@
         ]
       });
 
+      saveActiveSessionToStorage();
       closeModal('modal-add-exercise');
       renderCurrentSession();
     }
@@ -722,7 +841,6 @@
       const ex = currentSessionExercises[sIndex];
       if (!ex) return;
       
-      // 自動沿用上一組數值
       const lastSet = ex.sets[ex.sets.length - 1];
       const prevWeight = lastSet ? lastSet.weight : 20;
       const prevReps = lastSet ? lastSet.reps : 10;
@@ -733,19 +851,22 @@
         reps: prevReps,
         completed: false
       });
+
+      saveActiveSessionToStorage();
       renderCurrentSession();
     }
 
     function removeSet(exIdx, setIdx) {
       currentSessionExercises[exIdx].sets.splice(setIdx, 1);
-      // 重新編排組數索引
       currentSessionExercises[exIdx].sets.forEach((s, idx) => s.setIndex = idx + 1);
+      saveActiveSessionToStorage();
       renderCurrentSession();
     }
 
     function removeExerciseFromSession(idx) {
       if (confirm('確定移除此動作？')) {
         currentSessionExercises.splice(idx, 1);
+        saveActiveSessionToStorage();
         renderCurrentSession();
       }
     }
@@ -760,7 +881,7 @@
           <div style="text-align:center; padding: 40px 20px; color: var(--text-muted);">
             <div style="font-size: 38px; margin-bottom: 8px;">🏋️</div>
             <div style="font-weight: 600; font-size: 16px;">今日尚無訓練動作</div>
-            <div style="font-size: 13px; margin-top: 4px;">點擊上方「＋ 新增訓練動作」開始記錄</div>
+            <div style="font-size: 13px; margin-top: 4px;">點擊上方「選擇或直接輸入動作」開始記錄</div>
           </div>
         `;
         finishBtn.style.display = 'none';
@@ -829,15 +950,17 @@
     function updateSetValue(exIdx, sIdx, field, val) {
       if (currentSessionExercises[exIdx] && currentSessionExercises[exIdx].sets[sIdx]) {
         currentSessionExercises[exIdx].sets[sIdx][field] = parseFloat(val) || 0;
+        saveActiveSessionToStorage();
       }
     }
 
     /* ==========================================================================
-       3. 打勾自動觸發組間休息計時器 (Rest Timer & Vibration)
+       4. 打勾自動觸發組間休息倒數（時間戳記法）
        ========================================================================== */
     function toggleSetComplete(exIdx, sIdx, checkbox) {
       const checked = checkbox.checked;
       currentSessionExercises[exIdx].sets[sIdx].completed = checked;
+      saveActiveSessionToStorage();
 
       if (checked) {
         startRestTimer(userDefaultRestSec);
@@ -846,72 +969,82 @@
 
     function startRestTimer(seconds) {
       clearInterval(restTimerInterval);
-      restSecondsLeft = seconds;
-      updateRestTimerDisplay(restSecondsLeft);
+      restEndTime = Date.now() + (seconds * 1000);
 
       const modal = document.getElementById('rest-timer-modal');
       modal.style.display = 'flex';
+      updateRestCountdownDisplay();
 
-      restTimerInterval = setInterval(() => {
-        restSecondsLeft--;
-        updateRestTimerDisplay(restSecondsLeft);
+      restTimerInterval = setInterval(updateRestCountdownDisplay, 1000);
+    }
 
-        if (restSecondsLeft <= 0) {
-          clearInterval(restTimerInterval);
-          modal.style.display = 'none';
+    function updateRestCountdownDisplay() {
+      if (!restEndTime) return;
+      const remainMs = restEndTime - Date.now();
+      const remainSec = Math.ceil(remainMs / 1000);
 
-          // 手機震動提示 (震動300ms, 暫停150ms, 再震動300ms)
-          if ('vibrate' in navigator) {
-            navigator.vibrate([300, 150, 300]);
-          }
+      if (remainSec <= 0) {
+        clearInterval(restTimerInterval);
+        restEndTime = null;
+        document.getElementById('rest-timer-modal').style.display = 'none';
+
+        if ('vibrate' in navigator) {
+          navigator.vibrate([350, 150, 350]);
         }
-      }, 1000);
+        return;
+      }
+
+      const m = Math.floor(remainSec / 60).toString().padStart(2, '0');
+      const s = (remainSec % 60).toString().padStart(2, '0');
+      document.getElementById('rest-timer-display').innerText = `${m}:${s}`;
     }
 
     function adjustRestTimer(addSec) {
-      restSecondsLeft += addSec;
-      updateRestTimerDisplay(restSecondsLeft);
+      if (!restEndTime) return;
+      restEndTime += (addSec * 1000);
+      updateRestCountdownDisplay();
     }
 
     function cancelRestTimer() {
       clearInterval(restTimerInterval);
+      restEndTime = null;
       document.getElementById('rest-timer-modal').style.display = 'none';
     }
 
-    function updateRestTimerDisplay(sec) {
-      const m = Math.floor(sec / 60).toString().padStart(2, '0');
-      const s = (sec % 60).toString().padStart(2, '0');
-      document.getElementById('rest-timer-display').innerText = `${m}:${s}`;
-    }
-
     /* ==========================================================================
-       4. 訓練結束與儲存歷史 (Save Workout Session)
+       5. 訓練完成與儲存
        ========================================================================== */
     function finishCurrentWorkout() {
       if (currentSessionExercises.length === 0) return;
       if (!confirm('確定結束並儲存本次訓練？')) return;
 
       const history = JSON.parse(localStorage.getItem('workout_history') || '[]');
+      const finalDuration = Math.max(1, Math.round(totalElapsedSeconds / 60));
+
       const newRecord = {
         id: 'rec_' + Date.now(),
         date: new Date().toISOString(),
-        durationMinutes: Math.max(1, Math.round(sessionSeconds / 60)),
+        durationMinutes: finalDuration,
         items: JSON.parse(JSON.stringify(currentSessionExercises))
       };
 
       history.unshift(newRecord);
       localStorage.setItem('workout_history', JSON.stringify(history));
 
-      alert('🎉 太棒了！訓練記錄已成功儲存。');
+      localStorage.removeItem('active_workout_session');
       currentSessionExercises = [];
-      sessionSeconds = 0;
+      sessionStartTime = null;
+      clearInterval(sessionTimerInterval);
+      document.getElementById('session-timer').innerText = '00:00';
+
+      alert('🎉 恭喜完成！訓練日誌已成功儲存。');
       renderCurrentSession();
       renderHistoryList();
       switchTab('tab-history', document.querySelectorAll('.bottom-nav .nav-item')[1]);
     }
 
     /* ==========================================================================
-       5. 歷史歷程清單 (History View)
+       6. 歷史歷程清單 (History View)
        ========================================================================== */
     function renderHistoryList() {
       const container = document.getElementById('history-list-container');
@@ -922,14 +1055,13 @@
       container.innerHTML = '';
 
       if (history.length === 0) {
-        container.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">尚無訓練記錄，開始你的第一次訓練吧！</div>';
+        container.innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:20px;">尚無訓練記錄，今天就開始吧！</div>';
         return;
       }
 
       history.forEach(item => {
         const d = new Date(item.date);
         const dateStr = `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()} ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
-        
         let exerciseNames = item.items.map(i => `${i.name} (${i.sets.length}組)`).join(' · ');
 
         const card = document.createElement('div');
@@ -948,7 +1080,7 @@
     }
 
     /* ==========================================================================
-       6. 動作庫管理 (Library Management)
+       7. 動作庫管理 (Library Management)
        ========================================================================== */
     function renderExerciseLibrary() {
       const container = document.getElementById('library-list-container');
@@ -1010,11 +1142,11 @@
     }
 
     /* ==========================================================================
-       7. JSON 完整備份 / 還原 & CSV 匯出 (Backup & Export)
+       8. JSON 完整備份 / 還原 & CSV 匯出
        ========================================================================== */
     function exportFullBackupJSON() {
       const backupData = {
-        version: '2.0-apple',
+        version: '2.1-apple',
         exportDate: new Date().toISOString(),
         exercises: exercises,
         history: JSON.parse(localStorage.getItem('workout_history') || '[]'),
@@ -1083,7 +1215,7 @@
         });
       });
 
-      const csvContent = '﻿' + rows.map(r => r.join(',')).join('\n');
+      const csvContent = '\uFEFF' + rows.map(r => r.join(',')).join('\n');
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -1099,7 +1231,7 @@
     }
 
     /* ==========================================================================
-       8. 導航與輔助工具
+       9. 導航與輔助工具
        ========================================================================== */
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
@@ -1115,15 +1247,6 @@
 
     function closeModal(id) {
       document.getElementById(id).style.display = 'none';
-    }
-
-    function startSessionTimer() {
-      sessionTimerInterval = setInterval(() => {
-        sessionSeconds++;
-        const m = Math.floor(sessionSeconds / 60).toString().padStart(2, '0');
-        const s = (sessionSeconds % 60).toString().padStart(2, '0');
-        document.getElementById('session-timer').innerText = `${m}:${s}`;
-      }, 1000);
     }
   </script>
 </body>
