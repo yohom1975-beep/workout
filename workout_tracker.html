@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>健身訓練記錄 · Workout Tracker</title>
+  <title>健身訓練記錄 · Workout Tracker PRO</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#000000">
@@ -138,9 +138,6 @@
       background: rgba(255, 69, 58, 0.15);
       color: var(--accent);
     }
-    .btn-danger:active {
-      background: rgba(255, 69, 58, 0.25);
-    }
     .btn-sm {
       padding: 6px 12px;
       font-size: 13px;
@@ -181,7 +178,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       border-bottom: 1px solid rgba(255,255,255,0.06);
       padding-bottom: 10px;
     }
@@ -197,7 +194,19 @@
       border-radius: 12px;
       margin-left: 6px;
     }
+    .exercise-history-hint {
+      font-size: 12px;
+      color: #30d158;
+      background: rgba(48, 209, 88, 0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
+    /* Sets Table & Quick Adjusters */
     .sets-table {
       width: 100%;
       border-collapse: collapse;
@@ -213,14 +222,14 @@
     .sets-table td {
       padding: 6px 4px;
       text-align: center;
+      vertical-align: middle;
     }
     .set-input {
-      width: 100%;
-      max-width: 80px;
+      width: 65px;
       background: var(--card-sub-bg);
       border: 1px solid var(--border-color);
       color: #fff;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       padding: 8px 4px;
       border-radius: var(--radius-sm);
@@ -230,9 +239,30 @@
       outline: none;
       border-color: var(--accent-green);
     }
+    .weight-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+    }
+    .btn-step {
+      background: var(--card-sub-bg);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-step:active {
+      background: #444;
+      color: #fff;
+    }
+
     .set-check {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       appearance: none;
       -webkit-appearance: none;
@@ -252,7 +282,7 @@
     .set-check:checked::after {
       content: '✓';
       color: #000;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 900;
     }
 
@@ -401,7 +431,7 @@
   <header>
     <div class="header-title">
       <span>💪 健身記錄</span>
-      <span class="header-badge">PRO</span>
+      <span class="header-badge">PRO v3</span>
     </div>
     <div style="text-align: right;">
       <div id="session-timer" style="font-size: 16px; font-weight: 700; color: var(--accent-green); font-variant-numeric: tabular-nums;">
@@ -413,7 +443,7 @@
 
   <div class="container">
 
-    <!-- 1. 今日訓練分頁 (WORKOUT TAB) -->
+    <!-- 1. 今日訓練分頁 -->
     <section id="tab-workout" class="tab-pane active">
       <div class="card" style="margin-bottom: 14px;">
         <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">快速篩選目標部位</div>
@@ -439,7 +469,7 @@
       </button>
     </section>
 
-    <!-- 2. 歷史與數據分析分頁 (HISTORY TAB) -->
+    <!-- 2. 歷史與數據分析分頁 -->
     <section id="tab-history" class="tab-pane">
       <div class="card">
         <div class="card-title">
@@ -453,7 +483,7 @@
       </div>
     </section>
 
-    <!-- 3. 動作庫分頁 (LIBRARY TAB) -->
+    <!-- 3. 動作庫分頁 -->
     <section id="tab-library" class="tab-pane">
       <div class="card">
         <div class="card-title">
@@ -464,12 +494,12 @@
       </div>
     </section>
 
-    <!-- 4. 設定與資料備份 (SETTINGS TAB) -->
+    <!-- 4. 設定與資料備份 -->
     <section id="tab-settings" class="tab-pane">
       <div class="card">
         <div class="card-title">💾 數據備份與還原</div>
         <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-          訓練資料儲存在手機本機。定期下載 JSON 備份可防止清理暫存或換機時資料遺失。
+          訓練資料安全保存在手機本機。定期下載 JSON 備份以防萬一。更新程式碼時紀錄不會遺失。
         </p>
         <div style="display: flex; flex-direction: column; gap: 10px;">
           <button class="btn btn-secondary" onclick="exportFullBackupJSON()">
@@ -508,7 +538,7 @@
 
   </div>
 
-  <!-- 組間休息浮動視窗 (Floating Rest Timer) -->
+  <!-- 組間休息浮動視窗 -->
   <div id="rest-timer-modal">
     <div class="timer-info">
       <div class="timer-label">組間休息倒數</div>
@@ -550,7 +580,7 @@
 
       <div style="margin-bottom: 12px;">
         <input type="text" id="quick-exercise-input" class="form-control" 
-               placeholder="輸入動作名稱（例如：機械上斜推胸、六角槓硬舉）..." 
+               placeholder="輸入動作名稱（例如：槓鈴臥推、深蹲）..." 
                oninput="filterOrSuggestExercise(this.value)">
       </div>
 
@@ -595,7 +625,7 @@
 
   <script>
     /* ==========================================================================
-       1. 預設動作範本庫 (Default Exercise Templates)
+       1. 預設動作範本庫
        ========================================================================== */
     const DEFAULT_EXERCISES = [
       { id: 'ex_1', name: '槓鈴平躺臥推', category: '胸' },
@@ -625,12 +655,10 @@
     let currentSessionExercises = [];
     let currentCategoryFilter = '全部';
 
-    // 訓練計時 (絕對時間戳記法：離開網頁背景不中斷)
     let sessionStartTime = null;
     let sessionTimerInterval = null;
     let totalElapsedSeconds = 0;
 
-    // 組間休息倒數計時
     let restEndTime = null;
     let restTimerInterval = null;
     let userDefaultRestSec = 90;
@@ -687,7 +715,7 @@
     }
 
     /* ==========================================================================
-       2. 背景不中斷計時器 (Session Timer)
+       2. 計時器與背景不中斷
        ========================================================================== */
     function startSessionTimer() {
       if (!sessionStartTime) {
@@ -728,7 +756,51 @@
     }
 
     /* ==========================================================================
-       3. 今日訓練動作管理
+       3. 歷史查詢與數據比對核心邏輯
+       ========================================================================== */
+    // 從歷史紀錄中尋找某個動作的最近一次紀錄（回傳最大重量、次數、總量）
+    function getLastExerciseRecord(exerciseName) {
+      const history = JSON.parse(localStorage.getItem('workout_history') || '[]');
+      for (let session of history) {
+        if (!session.items) continue;
+        for (let item of session.items) {
+          if (item.name === exerciseName && item.sets && item.sets.length > 0) {
+            let maxWeight = 0;
+            let maxReps = 0;
+            let totalVol = 0;
+            item.sets.forEach(s => {
+              const w = parseFloat(s.weight) || 0;
+              const r = parseFloat(s.reps) || 0;
+              if (w >= maxWeight) {
+                maxWeight = w;
+                maxReps = r;
+              }
+              totalVol += (w * r);
+            });
+            return {
+              weight: maxWeight,
+              reps: maxReps,
+              totalVolume: totalVol,
+              date: new Date(session.date).toLocaleDateString()
+            };
+          }
+        }
+      }
+      return null;
+    }
+
+    // 計算當前動作的總重量 (Volume = Σ weight * reps)
+    function calculateExerciseVolume(sets) {
+      let vol = 0;
+      if (!sets) return 0;
+      sets.forEach(s => {
+        vol += (parseFloat(s.weight) || 0) * (parseFloat(s.reps) || 0);
+      });
+      return vol;
+    }
+
+    /* ==========================================================================
+       4. 今日訓練管理與 2.2kg 快速微調
        ========================================================================== */
     function filterWorkoutCategory(cat) {
       currentCategoryFilter = cat;
@@ -822,13 +894,18 @@
         startSessionTimer();
       }
 
+      // 檢查是否有前次歷史紀錄，自動帶入前次重量與次數
+      const lastRec = getLastExerciseRecord(ex.name);
+      const defaultWeight = lastRec ? lastRec.weight : 20;
+      const defaultReps = lastRec ? lastRec.reps : 10;
+
       currentSessionExercises.push({
         sessionExId: 'sex_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
         exerciseId: ex.id,
         name: ex.name,
         category: ex.category,
         sets: [
-          { setIndex: 1, weight: 20, reps: 10, completed: false }
+          { setIndex: 1, weight: defaultWeight, reps: defaultReps, completed: false }
         ]
       });
 
@@ -871,6 +948,23 @@
       }
     }
 
+    // 2.2 公斤快捷調整與一般數值修改
+    function adjustWeightStep(exIdx, sIdx, delta) {
+      let currentW = parseFloat(currentSessionExercises[exIdx].sets[sIdx].weight) || 0;
+      let newW = Math.max(0, Math.round((currentW + delta) * 10) / 10); // 保留一位小數
+      currentSessionExercises[exIdx].sets[sIdx].weight = newW;
+      saveActiveSessionToStorage();
+      renderCurrentSession();
+    }
+
+    function updateSetValue(exIdx, sIdx, field, val) {
+      if (currentSessionExercises[exIdx] && currentSessionExercises[exIdx].sets[sIdx]) {
+        currentSessionExercises[exIdx].sets[sIdx][field] = parseFloat(val) || 0;
+        saveActiveSessionToStorage();
+        renderCurrentSession(); // 重新渲染以即時更新總量對比
+      }
+    }
+
     function renderCurrentSession() {
       const container = document.getElementById('current-workout-list');
       const finishBtn = document.getElementById('finish-workout-btn');
@@ -895,12 +989,47 @@
         const block = document.createElement('div');
         block.className = 'exercise-block';
 
+        // 查詢前次訓練紀錄並計算總量差異
+        const lastRec = getLastExerciseRecord(item.name);
+        let historyHintHtml = '';
+        if (lastRec) {
+          const currentVol = calculateExerciseVolume(item.sets);
+          const volDiff = currentVol - lastRec.totalVolume;
+          let diffHtml = '';
+          if (currentVol > 0 && lastRec.totalVolume > 0) {
+            if (volDiff > 0) {
+              diffHtml = `<span style="color:#30d158; font-weight:700;">(總量 ＋${volDiff.toFixed(1)}kg)</span>`;
+            } else if (volDiff < 0) {
+              diffHtml = `<span style="color:#ff453a; font-weight:700;">(總量 ${volDiff.toFixed(1)}kg)</span>`;
+            } else {
+              diffHtml = `<span style="color:#8e8e93;">(總量持平)</span>`;
+            }
+          }
+
+          historyHintHtml = `
+            <div class="exercise-history-hint">
+              <span>📌 前次紀錄 (${lastRec.date})：最大 ${lastRec.weight}kg × ${lastRec.reps}下</span>
+              <span>${diffHtml}</span>
+            </div>
+          `;
+        } else {
+          historyHintHtml = `
+            <div class="exercise-history-hint" style="color:var(--text-muted); background:rgba(255,255,255,0.04);">
+              <span>📌 首次訓練此動作</span>
+            </div>
+          `;
+        }
+
         let setsRows = item.sets.map((s, sIdx) => `
           <tr>
             <td style="color:var(--text-muted); font-size:13px;">${s.setIndex}</td>
             <td>
-              <input type="number" step="0.5" class="set-input" value="${s.weight}" 
-                onchange="updateSetValue(${exIdx}, ${sIdx}, 'weight', this.value)">
+              <div class="weight-group">
+                <button class="btn-step" onclick="adjustWeightStep(${exIdx}, ${sIdx}, -2.2)">-2.2</button>
+                <input type="number" step="0.5" class="set-input" value="${s.weight}" 
+                  onchange="updateSetValue(${exIdx}, ${sIdx}, 'weight', this.value)">
+                <button class="btn-step" onclick="adjustWeightStep(${exIdx}, ${sIdx}, 2.2)">+2.2</button>
+              </div>
             </td>
             <td>
               <input type="number" class="set-input" value="${s.reps}" 
@@ -925,12 +1054,13 @@
             </div>
             <button class="btn btn-sm btn-danger" onclick="removeExerciseFromSession(${exIdx})">刪除</button>
           </div>
+          ${historyHintHtml}
           <table class="sets-table">
             <thead>
               <tr>
                 <th style="width: 15%;">組數</th>
-                <th style="width: 30%;">${isCardio ? '阻力 / 坡度' : '重量 (kg)'}</th>
-                <th style="width: 30%;">${isCardio ? '時間 (分)' : '次數 (次)'}</th>
+                <th style="width: 40%;">${isCardio ? '阻力 / 坡度' : '重量 (kg) [含 ±2.2快捷]'}</th>
+                <th style="width: 20%;">${isCardio ? '時間 (分)' : '次數'}</th>
                 <th style="width: 15%;">完成</th>
                 <th style="width: 10%;"></th>
               </tr>
@@ -947,15 +1077,8 @@
       });
     }
 
-    function updateSetValue(exIdx, sIdx, field, val) {
-      if (currentSessionExercises[exIdx] && currentSessionExercises[exIdx].sets[sIdx]) {
-        currentSessionExercises[exIdx].sets[sIdx][field] = parseFloat(val) || 0;
-        saveActiveSessionToStorage();
-      }
-    }
-
     /* ==========================================================================
-       4. 組間休息倒數
+       5. 組間休息倒數
        ========================================================================== */
     function toggleSetComplete(exIdx, sIdx, checkbox) {
       const checked = checkbox.checked;
@@ -1012,7 +1135,7 @@
     }
 
     /* ==========================================================================
-       5. 儲存與結算訓練
+       6. 儲存與歷史清單
        ========================================================================== */
     function finishCurrentWorkout() {
       if (currentSessionExercises.length === 0) return;
@@ -1043,9 +1166,6 @@
       switchTab('tab-history', document.querySelectorAll('.bottom-nav .nav-item')[1]);
     }
 
-    /* ==========================================================================
-       6. 歷史歷程清單（含單筆刪除與批次清空）
-       ========================================================================== */
     function renderHistoryList() {
       const container = document.getElementById('history-list-container');
       const countBadge = document.getElementById('history-total-count');
@@ -1084,7 +1204,6 @@
       });
     }
 
-    // 刪除單筆歷史紀錄
     function deleteHistoryItem(index) {
       const history = JSON.parse(localStorage.getItem('workout_history') || '[]');
       if (!history[index]) return;
@@ -1100,7 +1219,6 @@
       }
     }
 
-    // 清空所有歷史紀錄
     function clearAllHistory() {
       const history = JSON.parse(localStorage.getItem('workout_history') || '[]');
       if (history.length === 0) {
@@ -1115,7 +1233,7 @@
     }
 
     /* ==========================================================================
-       7. 動作庫管理
+       7. 動作庫與備份還原
        ========================================================================== */
     function renderExerciseLibrary() {
       const container = document.getElementById('library-list-container');
@@ -1176,12 +1294,9 @@
       }
     }
 
-    /* ==========================================================================
-       8. JSON / CSV 備份與還原
-       ========================================================================== */
     function exportFullBackupJSON() {
       const backupData = {
-        version: '2.1-apple',
+        version: '3.0-pro',
         exportDate: new Date().toISOString(),
         exercises: exercises,
         history: JSON.parse(localStorage.getItem('workout_history') || '[]'),
@@ -1266,7 +1381,7 @@
     }
 
     /* ==========================================================================
-       9. 導航與輔助工具
+       8. 導航與輔助
        ========================================================================== */
     function switchTab(tabId, btn) {
       document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
