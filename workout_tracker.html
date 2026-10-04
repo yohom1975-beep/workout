@@ -9,24 +9,28 @@
   <meta name="theme-color" content="#000000">
   <style>
 :root {
-  --bg: #0a0a0c;                      /* 冷調微深空 */
-  --card-bg: #141418;                 /* 磨砂鈦金屬灰 */
-  --card-inner: #1e1e24;              /* 凹槽卡片 */
-  --card-hover: #282832;
+    /* 畫布與卡片背景（深海板岩科技感） */
+    --bg: #14161f;                      /* 深海墨黑背景 */
+    --card-bg: #1b1f2b;                 /* 科技卡片板岩底色 */
+    --card-inner: #242938;              /* 輸入框 / 凹槽元件底色 */
+    --card-hover: #2e3547;              /* 觸控微光反饋 */
 
-  --accent-green: #ccff00;            /* 戰術螢光伏特黃 (強烈聚焦) */
-  --accent-orange: #f59e0b;
-  --accent-red: #ef4444;
-  --accent-blue: #38bdf8;             /* 冰河藍 */
+    /* 核心訊號色（精準還原圖片的電光青綠與珊瑚紅） */
+    --accent-green: #00e599;            /* 電光薄荷青綠 (完成勾選、總量成長、主按鈕) */
+    --accent-orange: #ff9f1c;           /* 警告暖橘 */
+    --accent-red: #ff4d6d;              /* 珊瑚粉紅 (負成長、刪除警示) */
+    --accent-blue: #00b4d8;             /* 青空藍 (標籤、篩選分類) */
 
-  --text-primary: #f8fafc;
-  --text-secondary: #64748b;          /* 石板冷灰 */
-  
-  --border: rgba(255, 255, 255, 0.06);
-  --radius-xl: 16px;
-  --radius-lg: 12px;
-  --radius-md: 8px;
-}
+    /* 文字階層與發光微邊框 */
+    --text-primary: #f0fdf4;            /* 帶微青冷調的極致白 */
+    --text-secondary: #7e8b9b;          /* 科技暗灰說明字 */
+    --border: rgba(0, 229, 153, 0.12);  /* 帶有青綠微光的極細精工邊框 */
+
+    /* 圓角規範 */
+    --radius-xl: 18px;
+    --radius-lg: 14px;
+    --radius-md: 8px;
+  }
     * {
       box-sizing: border-box;
       margin: 0;
