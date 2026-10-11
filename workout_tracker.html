@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Spotter Pro · 訓練紀錄</title>
+  <title>Spotter 2.0 · 訓練紀錄</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#14161f">
+  <meta name="theme-color" content="#f6f8fc">
   <style>
     :root {
       /* 賽博深海科技色彩系統 (Spotter Cyber Teal) */
@@ -428,21 +428,45 @@
       margin-bottom: 12px;
     }
     .input-spotter:focus { outline: none; border-color: var(--accent-green); }
-  </style>
+
+/* Spotter 2.0 · A light theme, mobile-first */
+:root{--bg:#f6f8fc;--card-bg:#fff;--card-inner:#f1f5fa;--card-hover:#e8eef8;--accent-green:#2563eb;--accent-orange:#d97706;--accent-red:#dc3545;--accent-blue:#2563eb;--text-primary:#18243b;--text-secondary:#65758b;--border:#e1e8f2;--border-subtle:#e8edf4;--radius-xl:18px;--radius-lg:12px}
+body{background:var(--bg);color:var(--text-primary);padding-bottom:110px}header{background:rgba(255,255,255,.94);border-bottom:1px solid var(--border);align-items:center} .brand-title{color:#1c3356;font-size:22px}.brand-sub{color:#64748b}.session-time-badge{color:#2563eb}.container{max-width:860px;padding:18px 14px}.spotter-card,.exercise-block{background:#fff;border:1px solid #e0e7f1;box-shadow:0 3px 14px rgba(31,58,98,.04)}.template-chip{background:#f4f7fc;border-color:#e0e8f4}.template-chip-title{color:#1e293b}.capsule{background:#f1f5fa}.capsule.active,.btn-primary{background:#2563eb;color:#fff}.btn-secondary{background:#f1f5fa;color:#24364f;border:1px solid #dce5f0}.btn-danger{background:#fff0f1;color:#c43248}.set-input,.input-spotter{background:#f7f9fd;color:#18243b;border:1px solid #d9e3ef}.set-input{width:62px;max-width:100%;font-size:16px}.set-input:focus,.input-spotter:focus{border-color:#2563eb}.btn-step{background:#edf3fb;color:#405573;border:1px solid #dce5f0}.set-check{background:#fff;border-color:#b7c7da}.set-check:checked{background:#2563eb;border-color:#2563eb}.set-check:checked::after{color:#fff}.tag{background:#edf4ff;color:#245cba}.chart-box{background:#f8faff}.bar-track{background:#e8eef7}nav.bottom-nav{background:rgba(255,255,255,.96);border-color:#dce5f0} .nav-btn.active{color:#2563eb}#rest-timer-bar{background:#fff;border-color:#2563eb;box-shadow:0 8px 32px #23416b2a}.modal-backdrop{background:#0d1b3270}.modal-sheet{background:#fff;max-height:90vh;overflow-y:auto}.spotter-card p{line-height:1.65}.sets-table{table-layout:fixed}.sets-table td{padding:6px 1px}.exercise-title{flex-wrap:wrap}.v2-hero{background:linear-gradient(130deg,#eaf2ff,#fff);border:1px solid #dce8fb;border-radius:20px;padding:20px;margin-bottom:14px}.v2-hero h1{font-size:23px;margin:5px 0}.v2-muted{font-size:12px;color:#64748b}.v2-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:15px 0}.v2-progress{height:8px;background:#dbe6f5;border-radius:12px;overflow:hidden;margin:12px 0}.v2-progress>div{height:100%;background:#2563eb;transition:width .2s}.v2-pill{display:inline-block;border-radius:999px;background:#eaf2ff;color:#2053aa;font-size:12px;padding:6px 10px}.v2-inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.v2-inline .input-spotter{margin:0;flex:1;min-width:130px}.v2-note{background:#eff6ff;color:#294b7b;padding:12px;border-radius:12px;font-size:12px;line-height:1.6;margin:12px 0}.v2-btn-wide{width:100%;min-height:44px}.v2-panel{border:1px solid #e1e8f2;border-radius:14px;padding:13px;margin:12px 0}.v2-panel h3{margin-bottom:10px;font-size:15px}.v2-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #eef2f7}.v2-row:last-child{border:0}.v2-row button{flex-shrink:0}.v2-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.v2-stat{background:#f3f7fc;border-radius:12px;text-align:center;padding:12px 4px}.v2-stat strong{display:block;font-size:20px;color:#1e3a67}.v2-stat span{font-size:11px;color:#64748b}.v2-compact{font-size:12px;color:#64748b}.v2-compact strong{color:#1f3453}.v2-danger-zone{border:1px solid #f3d2d7}.v2-filter{margin-bottom:10px}.v2-hidden{display:none!important}
+@media(max-width:420px){header{padding:12px 14px}.container{padding:12px 10px}.spotter-card,.exercise-block{padding:13px}.sets-table th{font-size:10px}.set-input{width:48px;padding:8px 1px}.btn-step{padding:6px 3px;font-size:10px}.exercise-title{font-size:15px}.v2-actions{grid-template-columns:1fr 1fr}.brand-title{font-size:20px}}
+@media(min-width:900px){.container{max-width:860px}.template-grid{grid-template-columns:repeat(6,1fr)}}
+
+  
+/* Spotter 2.0 — 參考圖風格：明亮、圓形數據節點、柔和面積折線圖 */
+.volume-chart-card{background:#fff;border:1px solid #edf1f4;border-radius:24px;padding:18px 13px 13px;box-shadow:0 8px 26px rgba(29,61,83,.06);margin:16px 0}
+.volume-chart-heading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:0 6px}
+.volume-chart-heading strong{display:block;color:#334155;font-size:15px}
+.volume-chart-heading small{display:block;margin-top:5px;color:#83929e;font-size:11px}
+.volume-chart-heading>span{font-size:12px;color:#64748b;white-space:nowrap}
+.volume-chart-svg{display:block;width:100%;height:auto;overflow:visible;margin-top:12px;touch-action:manipulation}
+.volume-point{cursor:pointer;outline:none}
+.volume-point .volume-halo{opacity:0;transition:opacity .15s}
+.volume-point.selected .volume-halo,.volume-point:focus-visible .volume-halo{opacity:1}
+.volume-point:focus-visible circle:nth-child(2){stroke:#184e60;stroke-width:2}
+.volume-chart-footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:7px;border-top:1px solid #f0f3f6;padding:12px 6px 3px;font-size:12px;color:#64748b}
+.volume-chart-footer strong{color:#287f94}
+.volume-chart-caption{font-size:11px;color:#9ba7b2;padding:8px 6px 0}
+.volume-empty{padding:25px 12px;text-align:center;color:#64748b;background:#f8fafc;border-radius:16px}
+@media(max-width:380px){.volume-chart-card{padding:14px 7px}.volume-chart-heading{padding:0 9px}.volume-chart-heading small{font-size:10px}}
+</style>
 </head>
 <body>
 
   <!-- 頂部 Header -->
   <header>
     <div>
-      <div class="brand-sub">SPOTTER PARTNER LOG</div>
+      <div class="brand-sub">SPOTTER 2.0 · PERSONAL TRAINING</div>
       <div class="brand-title">
-        <span>⚡ 訓練紀錄</span>
+        <span>訓練紀錄 2.0</span>
       </div>
     </div>
     <div style="text-align: right;">
       <div class="session-time-badge" id="session-timer">00:00</div>
-      <div class="brand-sub" style="color:var(--accent-green);">Session Active</div>
+      <div class="brand-sub" style="color:var(--accent-green);">訓練計時</div>
     </div>
   </header>
 
@@ -451,6 +475,7 @@
     <!-- 1. 今日訓練分頁 (WORKOUT) -->
     <section id="tab-workout" class="tab-pane active">
 
+      <div class="v2-hero"><div class="v2-muted">SPOTTER 2.0 · 今日訓練</div><h1 id="v2-greeting">開始今天的訓練</h1><div class="v2-muted" id="v2-today"></div><div class="v2-actions"><button class="btn btn-primary" onclick="v2StartFree()">＋ 自由訓練</button><button class="btn btn-secondary" onclick="v2CopyLast()">↻ 複製上次</button></div><div id="v2-active-summary"></div></div>
       <!-- Spotter 經典模板快速選單 -->
       <div class="spotter-card" style="margin-bottom: 12px; padding: 14px;">
         <div style="font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; font-weight: 600;">⚡ 快速載入課表模板 (Templates)</div>
@@ -490,8 +515,9 @@
         </button>
       </div>
 
+      <div class="v2-panel"><h3>我的自訂課表</h3><div id="v2-custom-routines"></div><div class="v2-inline" style="margin-top:10px"><input class="input-spotter" id="v2-routine-name" placeholder="課表名稱，例如：週一上肢" maxlength="60"><button class="btn btn-secondary" onclick="v2SaveRoutine()">儲存目前動作</button></div><div class="v2-muted" style="margin-top:8px">儲存動作與組數，不會修改過去紀錄。</div></div>
       <!-- 當前訓練動作清單 -->
-      <div id="current-workout-list"></div>
+      <div id="current-workout-list"></div><div id="v2-session-totals"></div>
 
       <button id="finish-btn" class="btn btn-secondary" style="width: 100%; margin-top: 10px; display: none;" onclick="finishSession()">
         ✓ 結束並儲存本次訓練
@@ -511,9 +537,9 @@
 
         <!-- 動作歷史圖形化對比選擇器 -->
         <div style="margin-bottom: 14px;">
-          <label style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; display: block;">選擇動作檢視進步趨勢：</label>
+          <label style="font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; display: block;">選擇動作檢視總訓練量趨勢：</label>
           <select id="history-compare-select" class="input-spotter" style="margin-bottom: 0;" onchange="renderExerciseChartComparison(this.value)">
-            <option value="">選擇要圖像化比較的動作...</option>
+            <option value="">選擇動作，查看總訓練量趨勢...</option>
           </select>
         </div>
 
@@ -522,6 +548,7 @@
 
         <hr style="border: 0; border-top: 1px solid var(--border-subtle); margin: 20px 0;">
 
+        <div id="v2-history-summary"></div><div class="v2-inline v2-filter"><input id="v2-history-search" class="input-spotter" placeholder="搜尋動作或備註" oninput="v2FilterHistory()"></div>
         <!-- 每日訓練詳細歷史清單 -->
         <div id="history-list-cards"></div>
       </div>
@@ -535,6 +562,7 @@
           <button class="btn btn-primary btn-sm" onclick="openCreateCustomModal()">＋ 新增動作</button>
         </div>
 
+        <input id="v2-library-search" class="input-spotter" placeholder="搜尋動作名稱" oninput="v2FilterLibrary()">
         <!-- 動作庫肌群篩選膠囊 -->
         <div class="capsule-scroller" id="library-filter-capsules">
           <span class="capsule active" onclick="filterLibraryGroup('全部', this)">全部</span>
@@ -584,7 +612,8 @@
 
   </div>
 
-  <!-- 組間休息倒數浮動 Bar -->
+  <div class="container" style="padding-top:0"><section id="v2-backup-guide" class="v2-panel"><h3>Spotter 2.0 資料安全</h3><p class="v2-muted">新版保留舊版儲存鍵值。第一次在正式網站切換前，請先從舊版匯出 JSON 備份。</p><div class="v2-inline" style="margin-top:10px"><button class="btn btn-secondary" onclick="v2ExportFull()">匯出完整備份（含進行中訓練）</button><button class="btn btn-secondary" onclick="document.getElementById('v2-import-file').click()">預覽並匯入備份</button><input type="file" id="v2-import-file" accept=".json,application/json" style="display:none" onchange="v2ImportFile(this)"></div><div id="v2-import-preview" class="v2-muted" style="margin-top:10px"></div></section></div>
+   <!-- 組間休息倒數浮動 Bar -->
   <div id="rest-timer-bar">
     <div>
       <div class="brand-sub">REST COUNTDOWN</div>
@@ -967,7 +996,7 @@
         const last = getLastRecord(ex.name);
         let badgeHtml = '';
         if (last) {
-          const currentTotal = ex.sets.reduce((acc, s) => acc + (s.weight * s.reps), 0);
+          const currentTotal = ex.sets.reduce((acc, s) => acc + (s.completed ? (s.weight * s.reps) : 0), 0);
           const diff = currentTotal - last.volume;
           const diffColor = diff > 0 ? 'var(--accent-green)' : (diff < 0 ? 'var(--accent-red)' : 'var(--text-secondary)');
           const diffSign = diff > 0 ? `+${diff.toFixed(1)}` : `${diff.toFixed(1)}`;
@@ -1114,13 +1143,13 @@
       const history = JSON.parse(localStorage.getItem('workout_history') || '[]');
       for (let sess of history) {
         for (let item of (sess.items || [])) {
-          if (item.name === name && item.sets && item.sets.length > 0) {
+          if (item.name === name && item.sets && item.sets.some(s => s.completed)) {
             let maxW = 0, maxR = 0, vol = 0;
             item.sets.forEach(s => {
               const w = parseFloat(s.weight) || 0;
               const r = parseFloat(s.reps) || 0;
-              if (w >= maxW) { maxW = w; maxR = r; }
-              vol += (w * r);
+              if (s.completed && w >= maxW) { maxW = w; maxR = r; }
+              if (s.completed) vol += (w * r);
             });
             return { weight: maxW, reps: maxR, volume: vol, date: new Date(sess.date).toLocaleDateString() };
           }
@@ -1137,7 +1166,7 @@
       history.forEach(h => (h.items || []).forEach(it => exerciseNames.add(it.name)));
 
       const currentVal = select.value;
-      select.innerHTML = '<option value="">選擇要圖像化比較的動作...</option>';
+      select.innerHTML = '<option value="">選擇動作，查看總訓練量趨勢...</option>';
       exerciseNames.forEach(name => {
         const opt = document.createElement('option');
         opt.value = name;
@@ -1150,82 +1179,79 @@
       }
     }
 
+    // Spotter 2.0: 每個節點代表「一次訓練中，該動作已完成組數的總訓練量」。
+    // 不使用外部圖表套件；SVG 可在 GitHub Pages 及離線 HTML 中執行。
+    let volumeChartPoints = [];
+    function selectVolumePoint(index) {
+      const point = volumeChartPoints[index];
+      if (!point) return;
+      document.querySelectorAll('#exercise-progression-chart .volume-point').forEach((el, i) => {
+        el.classList.toggle('selected', i === index);
+        el.setAttribute('aria-pressed', i === index ? 'true' : 'false');
+      });
+      const guide = document.getElementById('volume-guide');
+      if (guide) { guide.setAttribute('x1', point.x); guide.setAttribute('x2', point.x); guide.style.display = ''; }
+      const detail = document.getElementById('volume-detail');
+      if (detail) detail.textContent = `${point.fullDate} · ${point.volume.toLocaleString('zh-TW',{maximumFractionDigits:2})} kg · ${point.setCount} 組`;
+    }
+
     function renderExerciseChartComparison(exerciseName) {
       const container = document.getElementById('exercise-progression-chart');
-      if (!exerciseName) {
-        container.innerHTML = '';
-        return;
-      }
-
+      volumeChartPoints = [];
+      if (!exerciseName) { container.innerHTML = ''; return; }
       const history = JSON.parse(localStorage.getItem('workout_history') || '[]');
-      let sessionsWithEx = [];
-      [...history].reverse().forEach(sess => {
-        const found = (sess.items || []).find(i => i.name === exerciseName);
-        if (found && found.sets && found.sets.length > 0) {
-          let maxW = 0, vol = 0;
-          found.sets.forEach(s => {
-            const w = parseFloat(s.weight) || 0;
-            const r = parseFloat(s.reps) || 0;
-            if (w > maxW) maxW = w;
-            vol += (w * r);
-          });
-          const d = new Date(sess.date);
-          sessionsWithEx.push({
-            dateStr: `${d.getMonth()+1}/${d.getDate()}`,
-            maxWeight: maxW,
-            volume: vol
-          });
-        }
+      const sessions = [];
+      history.forEach(sess => {
+        const items = (sess.items || []).filter(item => item.name === exerciseName);
+        const completed = items.flatMap(item => (item.sets || []).filter(set => set.completed));
+        if (!completed.length) return;
+        const date = new Date(sess.date);
+        if (Number.isNaN(date.getTime())) return;
+        const volume = completed.reduce((sum, set) => sum + Math.max(0, Number(set.weight) || 0) * Math.max(0, Number(set.reps) || 0), 0);
+        sessions.push({ date, volume, setCount: completed.length, id: String(sess.id || '') });
       });
-
-      if (sessionsWithEx.length < 1) {
-        container.innerHTML = '<div style="color:var(--text-secondary); font-size:12px; padding:10px 0;">尚無足夠的訓練數據可進行圖表比對</div>';
+      sessions.sort((a,b) => a.date - b.date || a.id.localeCompare(b.id));
+      const recent = sessions.slice(-7);
+      if (!recent.length) {
+        container.innerHTML = '<div class="volume-empty">這個動作尚無已完成組數的歷史紀錄。</div>';
         return;
       }
-
-      const maxOverallWeight = Math.max(...sessionsWithEx.map(s => s.maxWeight), 1);
-      const latest = sessionsWithEx[sessionsWithEx.length - 1];
-      const prev = sessionsWithEx.length > 1 ? sessionsWithEx[sessionsWithEx.length - 2] : null;
-
-      let trendText = '';
-      if (prev) {
-        const diffW = (latest.maxWeight - prev.maxWeight).toFixed(1);
-        const diffV = (latest.volume - prev.volume).toFixed(1);
-        const isUp = diffW >= 0;
-        trendText = `
-          <div style="font-size:13px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
-            <span>最新進度 (${latest.dateStr} vs ${prev.dateStr})：</span>
-            <b style="color:${isUp ? 'var(--accent-green)' : 'var(--accent-red)'}">
-              ${isUp ? '▲ +' : '▼ '}${diffW} kg (總量 ${diffV >= 0 ? '+' : ''}${diffV}kg)
-            </b>
-          </div>
-        `;
-      } else {
-        trendText = `<div style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">首次訓練基準點：最大重量 <b>${latest.maxWeight} kg</b></div>`;
-      }
-
-      let barsHtml = sessionsWithEx.slice(-5).map((s, idx, arr) => {
-        const pct = Math.round((s.maxWeight / maxOverallWeight) * 100);
-        const isLatest = idx === arr.length - 1;
-        const barColor = isLatest ? 'var(--accent-green)' : 'var(--accent-blue)';
-        return `
-          <div class="bar-row">
-            <span class="bar-label">${s.dateStr}</span>
-            <div class="bar-track">
-              <div class="bar-fill" style="width: ${pct}%; background: ${barColor};"></div>
-            </div>
-            <span class="bar-value">${s.maxWeight} kg</span>
-          </div>
-        `;
+      const values = recent.map(x => x.volume);
+      const rawMin = Math.min(...values), rawMax = Math.max(...values);
+      const spread = Math.max(rawMax - rawMin, rawMax * .12, 1);
+      const low = Math.max(0, rawMin - spread * .65), high = rawMax + spread * .65;
+      const W = 360, H = 238, L = 38, R = 19, T = 26, B = 42;
+      const plotW = W - L - R, plotH = H - T - B;
+      const xAt = i => L + (recent.length === 1 ? plotW/2 : i*plotW/(recent.length-1));
+      const yAt = v => T + (high-v)/(high-low)*plotH;
+      volumeChartPoints = recent.map((item,i) => ({...item, x:xAt(i), y:yAt(item.volume), fullDate:item.date.toLocaleDateString('zh-TW',{year:'numeric',month:'numeric',day:'numeric'}), label:`${item.date.getMonth()+1}/${item.date.getDate()}`}));
+      const pts = volumeChartPoints;
+      const line = pts.map((p,i)=>`${i?'L':'M'} ${p.x.toFixed(2)} ${p.y.toFixed(2)}`).join(' ');
+      const fill = `${line} L ${pts[pts.length-1].x.toFixed(2)} ${H-B} L ${pts[0].x.toFixed(2)} ${H-B} Z`;
+      const fmt = n => Number(n).toLocaleString('zh-TW',{maximumFractionDigits:1});
+      const grid = Array.from({length:5},(_,i)=>{
+        const y=T+i*plotH/4, val=high-i*(high-low)/4;
+        return `<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#e9eff3" stroke-width="1"/><text x="${L-9}" y="${y+4}" text-anchor="end" fill="#96a3af" font-size="10">${fmt(val)}</text>`;
       }).join('');
-
+      const dots = pts.map((p,i)=>`<g class="volume-point${i===pts.length-1?' selected':''}" role="button" tabindex="0" aria-label="${p.fullDate}，總訓練量 ${fmt(p.volume)} 公斤" aria-pressed="${i===pts.length-1}" onclick="selectVolumePoint(${i})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectVolumePoint(${i})}"><circle class="volume-halo" cx="${p.x}" cy="${p.y}" r="21" fill="#d8eaf0"/><circle cx="${p.x}" cy="${p.y}" r="16" fill="#2d8296"/><text x="${p.x}" y="${p.y+3.3}" text-anchor="middle" font-size="8.5" font-weight="700" fill="#fff">${fmt(p.volume)}</text></g>`).join('');
+      const labels = pts.map(p=>`<text x="${p.x}" y="${H-16}" text-anchor="middle" fill="#83929e" font-size="10">${p.label}</text>`).join('');
+      const last = pts[pts.length-1], prev = pts[pts.length-2];
+      const diff = prev ? last.volume-prev.volume : null;
+      const trend = diff===null ? '首次紀錄' : `${diff>=0?'增加':'減少'} ${fmt(Math.abs(diff))} kg`;
       container.innerHTML = `
-        <div class="chart-box">
-          <div style="font-size:14px; font-weight:700; margin-bottom:8px;">📈 ${exerciseName} · 最大重量趨勢圖</div>
-          ${trendText}
-          ${barsHtml}
-        </div>
-      `;
+        <div class="volume-chart-card">
+          <div class="volume-chart-heading"><div><strong>總訓練量趨勢</strong><small>每次訓練 · 重量 × 次數（僅已完成組）</small></div><span>${pts[0].label} – ${last.label}</span></div>
+          <svg class="volume-chart-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${exerciseName}最近 ${pts.length} 次訓練的總訓練量折線圖">
+            <defs><linearGradient id="volumeFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2d8296" stop-opacity=".17"/><stop offset="100%" stop-color="#2d8296" stop-opacity=".015"/></linearGradient></defs>
+            ${grid}
+            <path d="${fill}" fill="url(#volumeFill)"/>
+            <path d="${line}" fill="none" stroke="#2d8296" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <line id="volume-guide" x1="${last.x}" x2="${last.x}" y1="${last.y+19}" y2="${H-B}" stroke="#88bdca" stroke-dasharray="2 4"/>
+            ${dots}${labels}
+          </svg>
+          <div class="volume-chart-footer"><span id="volume-detail">${last.fullDate} · ${fmt(last.volume)} kg · ${last.setCount} 組</span><strong>${trend}</strong></div>
+          <div class="volume-chart-caption">點選圓點查看該次訓練 · 最近 ${pts.length} 筆</div>
+        </div>`;
     }
 
     function renderHistory() {
@@ -1247,7 +1273,7 @@
 
         let itemsHtml = (sess.items || []).map(ex => {
           let vol = 0;
-          (ex.sets || []).forEach(s => vol += (s.weight * s.reps));
+          (ex.sets || []).forEach(s => {if(s.completed) vol += (s.weight * s.reps);});
           return `
             <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; font-size:13px; border-bottom:1px solid rgba(255,255,255,0.04);">
               <span style="font-weight:600;">▪ ${ex.name}</span>
@@ -1441,6 +1467,62 @@
 
     function openModal(id) { document.getElementById(id).style.display = 'flex'; }
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+/* Spotter 2.0 enhancement layer: retains all legacy storage keys. */
+const V2_ROUTINES_KEY='spotter_v2_routines';
+const v2Esc = v => String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function v2Read(key,fallback){try{const x=JSON.parse(localStorage.getItem(key));return x??fallback}catch(e){return fallback}}
+function v2History(){const h=v2Read('workout_history',[]);return Array.isArray(h)?h:[]}
+function v2Completed(items){return (items||[]).flatMap(x=>x.sets||[]).filter(x=>x.completed)}
+function v2Volume(items){return v2Completed(items).reduce((a,s)=>a+(Number(s.weight)||0)*(Number(s.reps)||0),0)}
+function v2Update(){
+ const today=document.getElementById('v2-today');if(!today)return;
+ today.textContent=new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+ const count=v2Completed(currentSession).length, total=currentSession.reduce((a,e)=>a+(e.sets||[]).length,0);
+ document.getElementById('v2-greeting').textContent=currentSession.length?'繼續你的訓練':'今天想練什麼？';
+ const box=document.getElementById('v2-active-summary');box.innerHTML=currentSession.length?`<div class="v2-summary"><div class="v2-stat"><strong>${currentSession.length}</strong><span>動作</span></div><div class="v2-stat"><strong>${count}/${total}</strong><span>完成組數</span></div><div class="v2-stat"><strong>${Math.round(v2Volume(currentSession)).toLocaleString()}</strong><span>訓練量 kg</span></div></div><div class="v2-progress"><div style="width:${total?100*count/total:0}%"></div></div>`:'<div class="v2-note">選擇固定課表、複製上次訓練，或直接開始自由訓練。</div>';
+ document.getElementById('v2-session-totals').innerHTML=currentSession.length?`<div class="v2-note">已完成 ${count} 組 · ${v2Volume(currentSession).toLocaleString('zh-TW',{maximumFractionDigits:1})} kg 訓練量。未勾選的組數不列入統計。</div>`:'';
+}
+function v2StartFree(){if(currentSession.length && !confirm('目前已有訓練動作。保留目前動作並繼續自由加入？'))return;openExerciseSelector()}
+function v2CopyLast(){const h=v2History().find(x=>(x.items||[]).length);if(!h)return alert('還沒有可複製的歷史訓練。');if(currentSession.length&&!confirm('將上次動作加入目前訓練，確定嗎？'))return;
+ if(!sessionStartTime)startSessionClock();
+ (h.items||[]).forEach(x=>currentSession.push({sessionId:'v2_'+Date.now()+'_'+Math.random().toString(36).slice(2),id:x.id||'',name:x.name,category:x.category||'自訂',sets:(x.sets||[]).map((s,i)=>({setIndex:i+1,weight:Number(s.weight)||0,reps:Number(s.reps)||0,completed:false}))}));
+ saveActiveSessionProgress();renderCurrentSession();window.scrollTo({top:0,behavior:'smooth'});
+}
+function v2Routines(){const r=v2Read(V2_ROUTINES_KEY,[]);return Array.isArray(r)?r:[]}
+function v2RenderRoutines(){const el=document.getElementById('v2-custom-routines');if(!el)return;const r=v2Routines();el.innerHTML=r.length?r.map((x,i)=>`<div class="v2-row"><div><strong>${v2Esc(x.name)}</strong><div class="v2-muted">${(x.items||[]).length} 個動作</div></div><div class="v2-inline"><button class="btn btn-primary btn-sm" onclick="v2LoadRoutine(${i})">載入</button><button class="btn btn-danger btn-sm" onclick="v2DeleteRoutine(${i})">刪除</button></div></div>`).join(''):'<div class="v2-muted">尚未建立自訂課表。先加入動作，再儲存為課表。</div>'}
+function v2SaveRoutine(){const name=document.getElementById('v2-routine-name').value.trim();if(!name)return alert('請輸入課表名稱');if(!currentSession.length)return alert('請先加入訓練動作');const r=v2Routines();r.push({id:'routine_'+Date.now(),name,items:currentSession.map(x=>({id:x.id,name:x.name,category:x.category,sets:x.sets.map(s=>({weight:s.weight,reps:s.reps}))}))});localStorage.setItem(V2_ROUTINES_KEY,JSON.stringify(r));document.getElementById('v2-routine-name').value='';v2RenderRoutines()}
+function v2LoadRoutine(i){const r=v2Routines()[i];if(!r)return;if(currentSession.length&&!confirm('將課表動作加入目前訓練？'))return;if(!sessionStartTime)startSessionClock();r.items.forEach(x=>currentSession.push({sessionId:'v2_'+Date.now()+'_'+Math.random().toString(36).slice(2),id:x.id,name:x.name,category:x.category,sets:(x.sets||[]).map((s,j)=>({setIndex:j+1,weight:s.weight,reps:s.reps,completed:false}))}));saveActiveSessionProgress();renderCurrentSession()}
+function v2DeleteRoutine(i){if(!confirm('刪除這個自訂課表？歷史訓練不受影響。'))return;const r=v2Routines();r.splice(i,1);localStorage.setItem(V2_ROUTINES_KEY,JSON.stringify(r));v2RenderRoutines()}
+function v2FilterLibrary(){const q=(document.getElementById('v2-library-search')?.value||'').trim().toLowerCase();document.querySelectorAll('#library-list-items>div').forEach(x=>x.style.display=x.textContent.toLowerCase().includes(q)?'':'none')}
+function v2FilterHistory(){const q=(document.getElementById('v2-history-search')?.value||'').trim().toLowerCase();document.querySelectorAll('#history-list-cards>div').forEach(x=>x.style.display=x.textContent.toLowerCase().includes(q)?'':'none')}
+function v2HistorySummary(){const h=v2History();const el=document.getElementById('v2-history-summary');if(!el)return;const completed=h.reduce((a,s)=>a+v2Completed(s.items).length,0),vol=h.reduce((a,s)=>a+v2Volume(s.items),0);el.innerHTML=`<div class="v2-summary" style="margin-bottom:15px"><div class="v2-stat"><strong>${h.length}</strong><span>訓練次數</span></div><div class="v2-stat"><strong>${completed}</strong><span>完成組數</span></div><div class="v2-stat"><strong>${Math.round(vol).toLocaleString()}</strong><span>總量 kg</span></div></div>`;v2FilterHistory()}
+function v2Download(obj,name){const u=URL.createObjectURL(new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+function v2ExportFull(){v2Download({version:'2.0-compatible',date:new Date().toISOString(),exercises:v2Read('workout_exercises',[]),history:v2History(),restSeconds:defaultRestSec,activeSession:v2Read('active_workout_session',null),routines:v2Routines()},'spotter_v2_full_'+new Date().toISOString().slice(0,10)+'.json')}
+function v2ImportFile(input){const file=input.files?.[0];if(!file)return;file.text().then(txt=>{let d;try{d=JSON.parse(txt)}catch(e){throw Error('不是有效的 JSON 檔案')}if(!d||!Array.isArray(d.exercises)||!Array.isArray(d.history))throw Error('找不到有效的動作庫或歷史紀錄');if(d.exercises.some(x=>!x||typeof x.name!=='string')||d.history.some(x=>!x||!Array.isArray(x.items)))throw Error('資料內容不符合預期格式');
+ const summary=`備份含 ${d.exercises.length} 個動作、${d.history.length} 筆訓練；目前有 ${exercises.length} 個動作、${v2History().length} 筆訓練。`;
+ document.getElementById('v2-import-preview').textContent=summary;
+ if(!confirm(summary+'\n\n匯入將覆蓋目前的動作與歷史資料。請確認已匯出目前資料的備份。是否繼續？'))return;
+ v2ExportFull(); // preserve current state before overwrite
+ localStorage.setItem('workout_exercises',JSON.stringify(d.exercises));localStorage.setItem('workout_history',JSON.stringify(d.history));
+ if(d.restSeconds!=null&&Number.isFinite(Number(d.restSeconds)))localStorage.setItem('workout_rest_sec',String(d.restSeconds));
+ if(d.activeSession&&Array.isArray(d.activeSession.exercises))localStorage.setItem('active_workout_session',JSON.stringify(d.activeSession));
+ if(Array.isArray(d.routines))localStorage.setItem(V2_ROUTINES_KEY,JSON.stringify(d.routines));
+ alert('匯入完成。將重新載入頁面。');location.reload();
+ }).catch(e=>alert('無法匯入：'+e.message)).finally(()=>input.value='')}
+// Decorate existing rendering without changing legacy record schema.
+const v2OriginalRender=renderCurrentSession;
+renderCurrentSession=function(){v2OriginalRender();v2Update()};
+const v2OriginalHistory=renderHistory;
+renderHistory=function(){v2OriginalHistory();v2HistorySummary()};
+const v2OriginalLibrary=renderLibrary;
+renderLibrary=function(){v2OriginalLibrary();v2FilterLibrary()};
+const v2OriginalToggle=toggleComplete;
+toggleComplete=function(exIdx,sIdx,cb){v2OriginalToggle(exIdx,sIdx,cb);v2Update()};
+const v2OriginalFinish=finishSession;
+finishSession=function(){v2OriginalFinish();v2Update()};
+window.addEventListener('DOMContentLoaded',()=>{v2RenderRoutines();v2Update();document.querySelector('#v2-backup-guide')?.closest('.container')?.remove();const settings=document.getElementById('tab-settings');if(settings){const panel=document.createElement('div');panel.className='spotter-card';panel.innerHTML='<h3 style="margin-bottom:10px">Spotter 2.0 完整備份與安全匯入</h3><div class="v2-note">保留原版資料格式，匯入前會顯示筆數並要求確認。請先備份原網站資料。</div><div class="v2-inline"><button class="btn btn-primary" onclick="v2ExportFull()">匯出完整備份</button><button class="btn btn-secondary" onclick="document.getElementById(\'v2-import-file\').click()">預覽並匯入</button></div><input id="v2-import-file" type="file" accept=".json,application/json" style="display:none" onchange="v2ImportFile(this)"><div id="v2-import-preview" class="v2-muted" style="margin-top:10px"></div>';settings.prepend(panel)} });
+
   </script>
 </body>
 </html>
